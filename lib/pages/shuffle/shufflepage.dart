@@ -33,7 +33,8 @@ class _ShufflePageState extends State<ShufflePage> {
             )),
             FlatButton(
               onPressed: () {
-                Get.toNamed("/shuffleSongScreen");
+                // randomController.changeIsTapRandom(true);
+                Get.toNamed('/shuffleSongScreen1');
               },
               child: Text(
                 'TAP TO RANDOM',
