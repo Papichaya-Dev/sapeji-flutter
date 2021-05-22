@@ -10,9 +10,14 @@ class ShuffleSongPage extends StatefulWidget {
 
 class _ShuffleSongPageState extends State<ShuffleSongPage> {
   DocumentReference linkRef;
-
-  List<String> videoID = ["https://youtu.be/MeGaR_2EQao"];
   bool showItem = false;
+  int randNum = 1;
+
+  List<String> videoID = [
+    "https://youtu.be/MeGaR_2EQao",
+    "https://www.youtube.com/watch?v=lY__VKI0Vs8"
+  ];
+
   final utube =
       RegExp(r"^(https?\:\/\/)?((www\.)?youtube\.com|youtu\.?be)\/.+$");
 
@@ -36,27 +41,21 @@ class _ShuffleSongPageState extends State<ShuffleSongPage> {
                         fontSize: 25, fontWeight: FontWeight.bold))),
             Flexible(
                 child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 4),
-                    child: ListView.builder(
-                        itemCount: videoID.length,
-                        itemBuilder: (context, index) => Container(
-                              margin: EdgeInsets.all(8),
-                              child: YoutubePlayer(
-                                controller: YoutubePlayerController(
-                                    initialVideoId:
-                                        YoutubePlayer.convertUrlToId(
-                                            videoID[index]),
-                                    flags: YoutubePlayerFlags(
-                                      autoPlay: false,
-                                      enableCaption: true,
-                                    )),
-                                showVideoProgressIndicator: true,
-                                progressIndicatorColor: Colors.blue,
-                                progressColors: ProgressBarColors(
-                                    playedColor: Colors.blue,
-                                    handleColor: Colors.blueAccent),
-                              ),
-                            )))),
+              margin: EdgeInsets.all(8),
+              child: YoutubePlayer(
+                controller: YoutubePlayerController(
+                    initialVideoId:
+                        YoutubePlayer.convertUrlToId(videoID[randNum]),
+                    flags: YoutubePlayerFlags(
+                      autoPlay: false,
+                      enableCaption: true,
+                    )),
+                showVideoProgressIndicator: true,
+                progressIndicatorColor: Colors.blue,
+                progressColors: ProgressBarColors(
+                    playedColor: Colors.blue, handleColor: Colors.blueAccent),
+              ),
+            )),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: FlatButton(
