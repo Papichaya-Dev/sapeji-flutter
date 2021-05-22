@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fungji/binding/random_binding.dart';
+import 'package:fungji/controller/random_controller.dart';
 import 'package:fungji/pages/homepage/musicScreen.dart';
 import 'package:fungji/pages/shuffle/shufflesong.dart';
 import 'package:get/get.dart';
@@ -20,9 +22,27 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'Comfordaa'),
       getPages: [
-        GetPage(name: '/', page: () => Core()),
-        GetPage(name: '/musicScreen', page: () => MusicScreen()),
-        GetPage(name: '/shuffleSongScreen', page: () => ShuffleSongPage())
+        GetPage(
+          name: '/',
+          page: () => Core(),
+          bindings: [
+            RandomBinding(),
+          ],
+        ),
+        GetPage(
+          name: '/musicScreen',
+          page: () => MusicScreen(),
+          bindings: [
+            RandomBinding(),
+          ],
+        ),
+        GetPage(
+          name: '/shuffleSongScreen',
+          page: () => ShuffleSongPage(),
+          bindings: [
+            RandomBinding(),
+          ],
+        )
       ],
     );
   }

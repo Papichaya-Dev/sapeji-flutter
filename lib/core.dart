@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:fungji/pages/homepage/homepage.dart';
 import 'package:fungji/pages/profile/profilepage.dart';
 import 'package:fungji/pages/shuffle/shufflepage.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'controller/random_controller.dart';
 
 class Core extends StatefulWidget {
   @override
@@ -10,6 +13,7 @@ class Core extends StatefulWidget {
 }
 
 class _CoreState extends State<Core> {
+  final randomController = Get.find<RandomController>();
   int _currentIndex = 0;
   List<Widget> pages = [
     ShufflePage(),
@@ -47,6 +51,7 @@ class _CoreState extends State<Core> {
         backgroundColor: Colors.grey[100],
         currentIndex: _currentIndex,
         onTap: (index) {
+          randomController.changeIsTapRandom(false);
           setState(() {
             _currentIndex = index;
           });
@@ -57,19 +62,19 @@ class _CoreState extends State<Core> {
                 "assets/images/shuffle.png",
                 width: 40,
               ),
-              title: Text("Random")),
+              label: "Random"),
           BottomNavigationBarItem(
               icon: Image.asset(
                 "assets/images/home.png",
                 width: 50,
               ),
-              title: Text("Home")),
+              label: "Home"),
           BottomNavigationBarItem(
               icon: Image.asset(
                 "assets/images/profile.png",
                 width: 30,
               ),
-              title: Text("Profile")),
+              label: "Profile"),
         ],
       ),
     );
