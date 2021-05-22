@@ -23,4 +23,8 @@ class DatabaseMethods {
   Future addMusicToMyPlayList(Map musicInfo) async {
     return firestore.collection('myPlayList').add(musicInfo);
   }
+
+  Future deleteMusicInPlaylist(String musicId) async {
+    return firestore.collection('myPlayList').doc(musicId).delete();
+  }
 }

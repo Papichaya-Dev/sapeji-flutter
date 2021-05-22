@@ -58,29 +58,43 @@ class _MyPlayListState extends State<MyPlayList> {
                     itemCount: snapshot.data.docs.length,
                     itemBuilder: (context, index) {
                       DocumentSnapshot ds = snapshot.data.docs[index];
-                      return Container(
-                        margin: const EdgeInsets.only(bottom: 8),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              width: 180,
-                              height: 100,
-                              child: ClipRRect(
-                                child: Image.network(
-                                  ds['image'],
-                                  fit: BoxFit.cover,
+                      return Dismissible(
+                        key: UniqueKey(),
+                        direction: DismissDirection.endToStart,
+                        background: Container(
+                          color: Colors.red,
+                          child: Icon(Icons.delete, color: Colors.white),
+                          alignment: Alignment.centerRight,
+                          padding: const EdgeInsets.only(right: 20.0),
+                        ),
+                        onDismissed: (direction) {
+                          print(direction);
+                          DatabaseMethods().deleteMusicInPlaylist(ds.id);
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.only(bottom: 8),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: 180,
+                                height: 100,
+                                child: ClipRRect(
+                                  child: Image.network(
+                                    ds['image'],
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(ds['title']),
-                                Text(ds['channelName']),
-                              ],
-                            )
-                          ],
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(ds['title']),
+                                  Text(ds['channelName']),
+                                ],
+                              )
+                            ],
+                          ),
                         ),
                       );
                     },
