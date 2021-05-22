@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fungji/controller/random_controller.dart';
+import 'package:fungji/helperFunctions/sharedpref_helper.dart';
 import 'package:fungji/services/database.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,8 +18,10 @@ class _ShuffleSongPage2State extends State<ShuffleSongPage2> {
   DocumentReference linkRef;
   bool showItem = false;
   int randNum = 1;
-
+  String username;
   Stream musicsStream;
+  Map musicData;
+  bool isAdd = false;
 
   List<String> videoID = [
     "https://youtu.be/MeGaR_2EQao",
@@ -28,7 +31,12 @@ class _ShuffleSongPage2State extends State<ShuffleSongPage2> {
 
   getAllMusic() async {
     musicsStream = await DatabaseMethods().getMusicList();
+    username = await SharedPreferenceHelper().getUserName();
     setState(() {});
+  }
+
+  addMusicToMyPlayList(musicInfo) {
+    DatabaseMethods().addMusicToMyPlayList(musicInfo);
   }
 
   @override
@@ -65,80 +73,121 @@ class _ShuffleSongPage2State extends State<ShuffleSongPage2> {
         ),
       ),
       body: Center(
-          child: Container(
-              child: StreamBuilder(
-        stream: musicsStream,
-        builder: (context, snapshot) {
-          if (snapshot.data != null) {
-            randomController.setListItemCount(snapshot.data.docs.length);
-            return Column(
-              // mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                    padding: EdgeInsets.symmetric(vertical: 20),
-                    child: Text('เพลงที่ fungji สุ่มให้คุณ',
-                        textAlign: TextAlign.left,
-                        style: GoogleFonts.kanit(fontSize: 22))),
-                Padding(
-                    padding: EdgeInsets.zero,
-                    child: Text('ในวันนี้ก็คือ . . .',
-                        textAlign: TextAlign.left,
+        child: Container(
+            child: StreamBuilder(
+          stream: musicsStream,
+          builder: (context, snapshot) {
+            if (snapshot.data != null) {
+              randomController.setListItemCount(snapshot.data.docs.length);
+              Map<String, dynamic> newMusicData = {
+                "image": snapshot
+                    .data.docs[randomController.randomSongIndex.value]['image'],
+                "title": snapshot
+                    .data.docs[randomController.randomSongIndex.value]['title'],
+                "channelName":
+                    snapshot.data.docs[randomController.randomSongIndex.value]
+                        ['channelName'],
+                "videoID": snapshot.data
+                    .docs[randomController.randomSongIndex.value]['videoID'],
+                "username": username
+              };
+
+              return Column(
+                // mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                      padding: EdgeInsets.symmetric(vertical: 20),
+                      child: Text('เพลงที่ fungji สุ่มให้คุณ',
+                          textAlign: TextAlign.left,
+                          style: GoogleFonts.kanit(fontSize: 22))),
+                  Padding(
+                      padding: EdgeInsets.zero,
+                      child: Text('ในวันนี้ก็คือ . . .',
+                          textAlign: TextAlign.left,
+                          style: GoogleFonts.kanit(
+                              fontSize: 25, fontWeight: FontWeight.bold))),
+                  Obx(() {
+                    return Flexible(
+                        child: Container(
+                      margin: EdgeInsets.all(8),
+                      child: YoutubePlayer(
+                        controller: YoutubePlayerController(
+                            initialVideoId: YoutubePlayer.convertUrlToId(
+                                snapshot.data.docs[randomController
+                                    .randomSongIndex.value]['videoID']),
+                            flags: YoutubePlayerFlags(
+                              autoPlay: false,
+                              enableCaption: true,
+                            )),
+                        showVideoProgressIndicator: true,
+                        progressIndicatorColor: Colors.blue,
+                        progressColors: ProgressBarColors(
+                            playedColor: Colors.blue,
+                            handleColor: Colors.blueAccent),
+                      ),
+                    ));
+                  }),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: FlatButton(
+                      onPressed: () {
+                        // randomController.randomNumber();
+                        randomController.randomNumber();
+                        Get.offAndToNamed('/shuffleSongScreen2');
+                        print('Click for Random again');
+                      },
+                      child: Text(
+                        'RANDOM AGAIN',
                         style: GoogleFonts.kanit(
-                            fontSize: 25, fontWeight: FontWeight.bold))),
-                Obx(() {
-                  return Flexible(
-                      child: Container(
-                    margin: EdgeInsets.all(8),
-                    child: YoutubePlayer(
-                      controller: YoutubePlayerController(
-                          initialVideoId: YoutubePlayer.convertUrlToId(snapshot
-                                  .data
-                                  .docs[randomController.randomSongIndex.value]
-                              ['videoID']),
-                          flags: YoutubePlayerFlags(
-                            autoPlay: false,
-                            enableCaption: true,
-                          )),
-                      showVideoProgressIndicator: true,
-                      progressIndicatorColor: Colors.blue,
-                      progressColors: ProgressBarColors(
-                          playedColor: Colors.blue,
-                          handleColor: Colors.blueAccent),
+                            textStyle: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold)),
+                      ),
+                      minWidth: 230,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(30.0)),
+                      height: 50,
+                      color: Colors.purpleAccent[400],
+                      textColor: Colors.white,
                     ),
-                  ));
-                }),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: FlatButton(
-                    onPressed: () {
-                      // randomController.randomNumber();
-                      randomController.randomNumber();
-                      Get.offAndToNamed('/shuffleSongScreen2');
-                      print('Click for Random again');
-                    },
-                    child: Text(
-                      'RANDOM AGAIN',
-                      style: GoogleFonts.kanit(
-                          textStyle: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold)),
-                    ),
-                    minWidth: 230,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(30.0)),
-                    height: 50,
-                    color: Colors.purpleAccent[400],
-                    textColor: Colors.white,
                   ),
-                ),
-              ],
-            );
-          } else {
-            return Container();
-          }
-        },
-      ))),
+                  !isAdd
+                      ? Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: FlatButton(
+                            onPressed: () {
+                              addMusicToMyPlayList(newMusicData);
+                              Get.snackbar('Success', 'add to play list');
+                              setState(() {
+                                isAdd = true;
+                              });
+                            },
+                            child: Text(
+                              'ADD TO MY PLAYLIST',
+                              style: GoogleFonts.kanit(
+                                  textStyle: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold)),
+                            ),
+                            minWidth: 230,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.circular(30.0)),
+                            height: 50,
+                            color: Colors.purpleAccent[400],
+                            textColor: Colors.white,
+                          ),
+                        )
+                      : Container()
+                ],
+              );
+            } else {
+              return Container();
+            }
+          },
+        )),
+      ),
     );
   }
 }
