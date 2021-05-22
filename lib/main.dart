@@ -5,6 +5,7 @@ import 'package:fungji/controller/random_controller.dart';
 import 'package:fungji/controller/user_controller.dart';
 import 'package:fungji/pages/authen/loginPage.dart';
 import 'package:fungji/pages/homepage/musicScreen.dart';
+import 'package:fungji/pages/profile/myPlaylist.dart';
 import 'package:fungji/pages/shuffle/shufflesong1.dart';
 import 'package:fungji/pages/shuffle/shufflesong2.dart';
 import 'package:fungji/services/auth.dart';
@@ -55,6 +56,13 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: '/shuffleSongScreen2',
           page: () => ShuffleSongPage2(),
+          bindings: [
+            RandomBinding(),
+          ],
+        ),
+        GetPage(
+          name: '/myPlaylist',
+          page: () => MyPlayList(),
           bindings: [
             RandomBinding(),
           ],

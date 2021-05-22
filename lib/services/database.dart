@@ -3,7 +3,6 @@ import 'package:fungji/helperFunctions/sharedpref_helper.dart';
 
 class DatabaseMethods {
   var firestore = FirebaseFirestore.instance;
-  var username = SharedPreferenceHelper().getUserName();
   Future addUserInfoToDB(
       String username, Map<String, dynamic> userInfoMap) async {
     return await firestore.collection('users').doc(username).set(userInfoMap);
@@ -13,9 +12,15 @@ class DatabaseMethods {
     return await firestore.collection('musics').snapshots();
   }
 
+  Future<Stream<QuerySnapshot>> getMyPlaylist(username) async {
+    print(username);
+    return await firestore
+        .collection('myPlayList')
+        .where('username', isEqualTo: username)
+        .snapshots();
+  }
+
   Future addMusicToMyPlayList(Map musicInfo) async {
-    print(musicInfo);
-    print('zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz');
     return firestore.collection('myPlayList').add(musicInfo);
   }
 }

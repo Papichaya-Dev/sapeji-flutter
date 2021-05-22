@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fungji/helperFunctions/sharedpref_helper.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -67,19 +68,18 @@ class _ProfilePageState extends State<ProfilePage> {
               FlatButton(
                 padding: EdgeInsets.only(right: 15.0),
                 disabledColor: Colors.transparent,
-                onPressed: () {},
+                onPressed: () {
+                  print('wtf');
+                  Get.toNamed('/myPlaylist');
+                },
                 child: new Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    IconButton(
-                      iconSize: 80,
-                      icon: Image.asset(
-                        "assets/images/playlist.png",
-                      ),
-                      onPressed: () {
-                        print('Click for Playlist-me');
-                      },
+                    Image.asset(
+                      "assets/images/playlist.png",
+                      width: 80,
+                      height: 80,
                     ),
                     new Text(' เพลย์ลิสต์ของฉัน',
                         style: GoogleFonts.kanit(
