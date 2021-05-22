@@ -10,7 +10,7 @@ class Core extends StatefulWidget {
 }
 
 class _CoreState extends State<Core> {
-  int _currentIndex = 0;
+  int _currentIndex = 1;
   List<Widget> pages = [
     ShufflePage(),
     HomePage(),
@@ -57,19 +57,19 @@ class _CoreState extends State<Core> {
                 "assets/images/shuffle.png",
                 width: 40,
               ),
-              title: Text("Random")),
+              label: "Random"),
           BottomNavigationBarItem(
               icon: Image.asset(
                 "assets/images/home.png",
                 width: 50,
               ),
-              title: Text("Home")),
+              label: "Home"),
           BottomNavigationBarItem(
               icon: Image.asset(
                 "assets/images/profile.png",
                 width: 30,
               ),
-              title: Text("Profile")),
+              label: "Profile"),
         ],
       ),
     );
