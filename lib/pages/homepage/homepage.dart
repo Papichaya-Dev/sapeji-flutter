@@ -1,7 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -9,29 +8,29 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  DocumentReference linkRef;
-  List<String> videoID = [
-    "https://www.youtube.com/watch?v=OuUNVTQTbvM",
-    "https://www.youtube.com/watch?v=OuUNVTQTbvM",
-  ];
   List youtubeList = [
     {
       "image":
           "https://firebasestorage.googleapis.com/v0/b/fungji-9fb16.appspot.com/o/song_1-homepage.JPG?alt=media&token=ffd197b0-1098-4869-b415-a063b71df187",
+      "title": "BUT HATE PANIC - รู้บ้างไหมเธอ ?",
       "channelName": "BUT HATE PANIC",
-      "title": "BUT HATE PANIC - รู้บ้างไหมเธอ ?"
+      "videoID": "https://youtu.be/8DSRSEIjZL4",
+      "lyrics":
+          "เก็บมันเอาไว้ ช่วงเวลา ก่อนที่เธอ จะจากไป\n เหลือแค่รอย น้ำตา ที่ยังคงอยู่ ไม่จางหายไป ในวันนี้จะเป็นไร\nเธอยังจำได้ใช่ไหม ว่าวันนี้คือวันพิเศษ ที่มีกับเธอ ที่ฉัน รู้ตัวว่าเธอได้เปลื่ยนไป ที่ฉัน เข้าใจทุกอย่างที่ผ่านมา ว่ามันเป็นเรื่องหลอก ที่ยังคงอยู่(ในจิตใจไม่จางไม่หาย)ว่าตัวฉันควรหยุดที่ตรงนี้ รู้บ้างไหมเธอ ว่าฉันไม่เคยได้พบใคร (ที่ดีเหมือนเธอเลยสักครั้ง)รู้บ้างไหมเธอ กับความรู้สึกที่บอกไปเป็นเพียงแค่ลม ที่พัดผ่านใจเธอ"
     },
     {
       "image":
           "https://firebasestorage.googleapis.com/v0/b/fungji-9fb16.appspot.com/o/song_2-homepage.JPG?alt=media&token=cd983d7f-688c-40d4-bd30-31f8d7543eab",
+      "title": "PLASUI PLASUI - หากฉันรู้",
       "channelName": "PLASUI PLASUI",
-      "title": "PLASUI PLASUI - หากฉันรู้"
+      "videoID": "https://youtu.be/1c1wplC1Enc"
     },
     {
       "image":
           "https://firebasestorage.googleapis.com/v0/b/fungji-9fb16.appspot.com/o/song_3-homepage.JPG?alt=media&token=4e4dd1cd-4077-4939-94f1-692a387049ab",
+      "title": "Don't Look Back In Anger",
       "channelName": "Oasis",
-      "title": "Oasis - Don't Look Back In Anger"
+      "videoID": "https://youtu.be/r8OipmKFDeM"
     },
   ];
   final utube =
@@ -53,32 +52,48 @@ class _HomePageState extends State<HomePage> {
                   itemCount: youtubeList.length,
                   itemBuilder: (context, index) {
                     var showData = youtubeList[index];
+                    var showLyrics = youtubeList[index];
+
                     return Row(
                       children: [
-                        Container(
-                            width: 160,
-                            height: 100,
-                            child: Image.network(
-                              showData['image'],
-                              fit: BoxFit.cover,
-                            )),
+                        FlatButton(
+                            onPressed: () {
+                              Get.toNamed(
+                                "/musicScreen",
+                                arguments: showData['videoID'],
+                              );
+                            },
+                            child: Container(
+                                width: 160,
+                                height: 100,
+                                child: Image.network(
+                                  showData['image'],
+                                  fit: BoxFit.cover,
+                                ))),
                         Divider(
                           height: 105,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            children: [
-                              Text(showData['title'],
-                                  style: GoogleFonts.kanit(
-                                      textStyle: TextStyle(
-                                          color: Colors.black, fontSize: 14))),
-                              Text(showData['channelName'],
-                                  style: GoogleFonts.kanit(
-                                      textStyle: TextStyle(
-                                          color: Colors.grey[600],
-                                          fontSize: 14))),
-                            ],
+                        GestureDetector(
+                          onTap: () {
+                            Get.toNamed("/musicScreen",
+                                arguments: showData['videoID']);
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(0.1),
+                            child: Column(
+                              children: [
+                                Text(showData['title'],
+                                    style: GoogleFonts.kanit(
+                                        textStyle: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 14))),
+                                Text(showData['channelName'],
+                                    style: GoogleFonts.kanit(
+                                        textStyle: TextStyle(
+                                            color: Colors.grey[600],
+                                            fontSize: 14))),
+                              ],
+                            ),
                           ),
                         )
                       ],
@@ -90,7 +105,7 @@ class _HomePageState extends State<HomePage> {
             height: 20,
           ),
           Padding(
-            padding: const EdgeInsets.only(right: 200, top: 5, bottom: 10),
+            padding: const EdgeInsets.only(right: 200, top: 3),
             child: Text(
               'เพลย์ลิสต์โดนใจ',
               style: GoogleFonts.kanit(

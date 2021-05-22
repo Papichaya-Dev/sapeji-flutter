@@ -13,7 +13,6 @@ class _ShufflePageState extends State<ShufflePage> {
     return Center(
       child: Container(
         child: Column(
-          // mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
                 padding: EdgeInsets.symmetric(vertical: 20),
