@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fungji/helperFunctions/sharedpref_helper.dart';
-import 'package:fungji/pages/profile/musicTile.dart';
 import 'package:fungji/services/database.dart';
 import 'package:google_fonts/google_fonts.dart';
 

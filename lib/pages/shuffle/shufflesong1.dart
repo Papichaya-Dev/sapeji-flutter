@@ -127,6 +127,8 @@ class _ShuffleSongPageState extends State<ShuffleSongPage> {
                       ),
                     ));
                   }),
+                  Text(snapshot.data
+                      .docs[randomController.randomSongIndex.value]['title']),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: FlatButton(

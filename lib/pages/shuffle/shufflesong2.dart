@@ -133,7 +133,7 @@ class _ShuffleSongPage2State extends State<ShuffleSongPage2> {
                       onPressed: () {
                         // randomController.randomNumber();
                         randomController.randomNumber();
-                        Get.offAndToNamed('/shuffleSongScreen2');
+                        Get.offAndToNamed('/shuffleSongScreen1');
                         print('Click for Random again');
                       },
                       child: Text(
