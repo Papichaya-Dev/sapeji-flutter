@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:fungji/controller/random_controller.dart';
-import 'package:fungji/pages/shuffle/askShuffleSong.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import 'shufflesong1.dart';
 
 class ShufflePage extends StatefulWidget {
   @override
@@ -12,8 +8,6 @@ class ShufflePage extends StatefulWidget {
 }
 
 class _ShufflePageState extends State<ShufflePage> {
-  final randomController = Get.find<RandomController>();
-
   @override
   Widget build(BuildContext context) {
     return Center(

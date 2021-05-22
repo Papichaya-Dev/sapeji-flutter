@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:fungji/binding/random_binding.dart';
+import 'package:fungji/binding/user_binding.dart';
 import 'package:fungji/controller/random_controller.dart';
+import 'package:fungji/controller/user_controller.dart';
+import 'package:fungji/pages/authen/loginPage.dart';
 import 'package:fungji/pages/homepage/musicScreen.dart';
 import 'package:fungji/pages/shuffle/shufflesong1.dart';
 import 'package:fungji/pages/shuffle/shufflesong2.dart';
+import 'package:fungji/services/auth.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -25,10 +29,13 @@ class MyApp extends StatelessWidget {
       getPages: [
         GetPage(
           name: '/',
+          page: () => LoginPage(),
+          bindings: [RandomBinding(), UserBinding()],
+        ),
+        GetPage(
+          name: '/core',
           page: () => Core(),
-          bindings: [
-            RandomBinding(),
-          ],
+          bindings: [RandomBinding(), UserBinding()],
         ),
         GetPage(
           name: '/musicScreen',
