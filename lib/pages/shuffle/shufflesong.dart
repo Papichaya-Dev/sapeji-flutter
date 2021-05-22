@@ -106,3 +106,44 @@ class _ShuffleSongPageState extends State<ShuffleSongPage> {
     );
   }
 }
+
+//  @override
+//   void initState() {
+//     linkRef = FirebaseFirestore.instance.collection('links').doc('urls');
+//     super.initState();
+//     // getData();
+//     // print("https://www.youtube.com/watch?v=OuUNVTQTbvM");
+//   }
+
+// _addItemFuntion() async {
+//   await linkRef.set({
+//     _addItemController.text.toString(): _addItemController.text.toString()
+//   }, SetOptions(merge: true));
+//   Flushbar(
+//       title: 'Added',
+//       message: 'updating...',
+//       duration: Duration(seconds: 3),
+//       icon: Icon(Icons.info_outline))
+//     ..show(context);
+//   setState(() {
+//     videoID.add(_addItemController.text);
+//   });
+//   print('added');
+//   FocusScope.of(this.context).unfocus();
+//   _addItemController.clear();
+// }
+
+// getData() async {
+//   await linkRef
+//       .get()
+//       .then((value) => value.data()?.forEach((key, value) {
+//             if (!videoID.contains(value)) {
+//               videoID.add(value);
+//             }
+//           }))
+//       .whenComplete(() => setState(() {
+//             videoID.shuffle();
+//             showItem = true;
+//           }));
+// }
+// }
