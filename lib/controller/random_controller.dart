@@ -12,9 +12,14 @@ class RandomController extends GetxController {
     "https://www.youtube.com/watch?v=0krQNAz7kbw",
   ];
   var randomSongIndex = 0.obs;
+  var listItemCount = 0.obs;
 
   changeIsTapRandom(bool value) {
     isTapRandom.value = value;
+  }
+
+  setListItemCount(value) {
+    listItemCount.value = value;
   }
 
   randomNumber() {
@@ -22,9 +27,7 @@ class RandomController extends GetxController {
     int oldNum = randomSongIndex.value;
     int newRandom;
     do {
-      newRandom = random.nextInt(videoID.length);
-      print(oldNum);
-      print(newRandom);
+      newRandom = random.nextInt(listItemCount.value);
     } while (newRandom == oldNum);
     randomSongIndex.value = newRandom;
   }

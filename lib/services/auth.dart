@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fungji/controller/user_controller.dart';
 import 'package:fungji/helperFunctions/sharedpref_helper.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -9,7 +8,6 @@ import 'package:flutter/cupertino.dart';
 
 class AuthMethods {
   final FirebaseAuth auth = FirebaseAuth.instance;
-  final userController = Get.find<UserController>();
 
   getCurrentUser() async {
     return await auth.currentUser;
@@ -49,7 +47,6 @@ class AuthMethods {
       await SharedPreferenceHelper()
           .saveUserDisplayName(userDetails.displayName);
       await SharedPreferenceHelper().saveUserProfileUrl(userDetails.photoURL);
-      await userController.setUserCredential(userInfoMap);
 
       DatabaseMethods()
           .addUserInfoToDB(userDetails.email.split('@')[0], userInfoMap)
