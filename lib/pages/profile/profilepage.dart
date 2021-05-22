@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fungji/helperFunctions/sharedpref_helper.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -7,23 +8,42 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  String userEmail, userProfileImage, username;
+
+  getUserdata() async {
+    userEmail = await SharedPreferenceHelper().getUserEmail();
+    username = await SharedPreferenceHelper().getUserDisplayName();
+    userProfileImage = await SharedPreferenceHelper().getUserProfileUrl();
+    setState(() {});
+  }
+
+  onScreenLoaded() async {
+    await getUserdata();
+  }
+
+  @override
+  void initState() {
+    onScreenLoaded();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Column(
-        // mainAxisAlignment: MainAxisAlignment.center,
-        // crossAxisAlignment: CrossAxisAlignment.center,
-
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              (Image.asset(
-                "assets/images/profile-profilepage.png",
-                width: 80,
-                alignment: Alignment.center,
-              )),
-              Text(' fungji#1\n lo0kpad@hotmail.com',
+              ClipRRect(
+                borderRadius: BorderRadius.circular(40),
+                child: (Image.network(
+                  userProfileImage,
+                  width: 80,
+                  alignment: Alignment.center,
+                )),
+              ),
+              Text('${username} \n ${userEmail}',
                   style: GoogleFonts.kanit(
                       textStyle: TextStyle(color: Colors.black, fontSize: 16))),
               Padding(

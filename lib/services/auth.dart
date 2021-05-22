@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fungji/controller/user_controller.dart';
+import 'package:fungji/helperFunctions/sharedpref_helper.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
@@ -41,10 +42,17 @@ class AuthMethods {
         "userProfileImage": userDetails.photoURL,
         "userEmail": userDetails.email,
       };
+      await SharedPreferenceHelper().saveUserEmail(userDetails.email);
+      await SharedPreferenceHelper().saveUserId(userDetails.uid);
+      await SharedPreferenceHelper()
+          .saveUserName(userDetails.email.split('@')[0]);
+      await SharedPreferenceHelper()
+          .saveUserDisplayName(userDetails.displayName);
+      await SharedPreferenceHelper().saveUserProfileUrl(userDetails.photoURL);
       await userController.setUserCredential(userInfoMap);
 
       DatabaseMethods()
-          .addUserInfoToDB(userDetails.uid, userInfoMap)
+          .addUserInfoToDB(userDetails.email.split('@')[0], userInfoMap)
           .then((value) {
         Get.offAndToNamed('/core');
       });
