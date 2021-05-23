@@ -117,7 +117,9 @@ class _MusicScreenState extends State<MusicScreen> {
                         initialVideoId:
                             YoutubePlayer.convertUrlToId(data['videoID']),
                         flags: YoutubePlayerFlags(
-                          enableCaption: true,
+                          mute: false,
+                          enableCaption: false,
+                          autoPlay: false,
                         )),
                     showVideoProgressIndicator: true,
                     progressIndicatorColor: Colors.blue,

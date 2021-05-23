@@ -134,30 +134,6 @@ class _ShuffleSongPageState extends State<ShuffleSongPage> {
                         style: GoogleFonts.kanit(
                             fontSize: 23, fontWeight: FontWeight.bold)),
                   ),
-                  // SizedBox(
-                  //   height: 45,
-                  //   width: 230,
-                  //   child: OutlineButton(
-                  //     color: Colors.black,
-                  //     child: new Text(
-                  //       'RANDOM AGAIN',
-                  //       style: GoogleFonts.kanit(
-                  //           textStyle: TextStyle(
-                  //               color: Colors.black,
-                  //               fontSize: 20,
-                  //               fontWeight: FontWeight.bold)),
-                  //     ),
-                  //     borderSide: BorderSide(color: Colors.black),
-                  //     onPressed: () {
-                  //       // randomController.randomNumber();
-                  //       randomController.randomNumber();
-                  //       Get.offAndToNamed('/shuffleSongScreen2');
-                  //       print('Click for Random again');
-                  //     },
-                  //     shape: new RoundedRectangleBorder(
-                  //         borderRadius: new BorderRadius.circular(20.0)),
-                  //   ),
-                  // ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: FlatButton(
@@ -179,7 +155,7 @@ class _ShuffleSongPageState extends State<ShuffleSongPage> {
                       shape: RoundedRectangleBorder(
                           borderRadius: new BorderRadius.circular(30.0)),
                       height: 50,
-                      color: Colors.deepPurple[300],
+                      color: Colors.deepPurple[200],
                       textColor: Colors.white,
                     ),
                   ),
