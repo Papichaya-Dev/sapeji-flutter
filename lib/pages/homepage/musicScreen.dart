@@ -52,27 +52,31 @@ class _MusicScreenState extends State<MusicScreen> {
                       ),
                     ),
                   ),
-                  FlatButton(
-                    disabledColor: Colors.transparent,
-                    onPressed: () {},
-                    child: new Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(top: 10),
-                          child: GestureDetector(
-                              onTap: () {
-                                print('Click for add Playlist');
-                              },
-                              child: Image.asset(
-                                "assets/images/add-playlist.png",
-                                width: 65,
-                              )),
-                        ),
-                      ],
-                    ),
-                  ),
+                  data['fromPlaylist'] == null
+                      ? FlatButton(
+                          disabledColor: Colors.transparent,
+                          onPressed: () {},
+                          child: new Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(top: 10),
+                                child: GestureDetector(
+                                    onTap: () {
+                                      print('Click for add Playlist');
+                                    },
+                                    child: Image.asset(
+                                      "assets/images/add-playlist.png",
+                                      width: 65,
+                                    )),
+                              ),
+                            ],
+                          ),
+                        )
+                      : SizedBox(
+                          height: 80,
+                        )
                 ],
               ),
               Flexible(
@@ -83,7 +87,6 @@ class _MusicScreenState extends State<MusicScreen> {
                         initialVideoId:
                             YoutubePlayer.convertUrlToId(data['videoID']),
                         flags: YoutubePlayerFlags(
-                          autoPlay: false,
                           enableCaption: true,
                         )),
                     showVideoProgressIndicator: true,

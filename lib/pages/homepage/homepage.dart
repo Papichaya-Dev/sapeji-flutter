@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:fungji/helperFunctions/sharedpref_helper.dart';
+import 'package:fungji/services/database.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -33,8 +36,29 @@ class _HomePageState extends State<HomePage> {
       "videoID": "https://youtu.be/r8OipmKFDeM"
     },
   ];
+
+  String username;
+  Stream musicsStream;
+
   final utube =
       RegExp(r"^(https?\:\/\/)?((www\.)?youtube\.com|youtu\.?be)\/.+$");
+
+  getAllMusic() async {
+    musicsStream = await DatabaseMethods().getMusicList();
+    username = await SharedPreferenceHelper().getUserName();
+    setState(() {});
+  }
+
+  addMusicToMyPlayList(musicInfo) {
+    DatabaseMethods().addMusicToMyPlayList(musicInfo);
+  }
+
+  @override
+  void initState() {
+    getAllMusic();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,73 +72,83 @@ class _HomePageState extends State<HomePage> {
           SizedBox(
             height: 300,
             child: Expanded(
-              child: ListView.builder(
-                  itemCount: youtubeList.length,
-                  itemBuilder: (context, index) {
-                    var showData = youtubeList[index];
-                    var showLyrics = youtubeList[index];
-
-                    return Row(
-                      children: [
-                        FlatButton(
-                            onPressed: () {
-                              Get.toNamed(
-                                "/musicScreen",
-                                arguments: {
-                                  "image": showData['image'],
-                                  "title": showData['title'],
-                                  "channelName": showData['channelName'],
-                                  "videoID": showData['videoID'],
-                                  "suggestion": showData['suggestion'],
-                                  "lyrics": showData['lyrics']
-                                },
-                              );
-                            },
-                            child: Container(
-                                width: 160,
-                                height: 100,
-                                child: Image.network(
-                                  showData['image'],
-                                  fit: BoxFit.cover,
-                                ))),
-                        Divider(
-                          height: 105,
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Get.toNamed(
-                              "/musicScreen",
-                              arguments: {
-                                "image": showData['image'],
-                                "title": showData['title'],
-                                "channelName": showData['channelName'],
-                                "videoID": showData['videoID'],
-                                "suggestion": showData['suggestion'],
-                                "lyrics": showData['lyrics']
-                              },
-                            );
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.all(0.1),
-                            child: Column(
+              child: StreamBuilder(
+                stream: musicsStream,
+                builder: (context, snapshot) {
+                  return ListView.builder(
+                      itemCount: snapshot.data.docs.length,
+                      itemBuilder: (context, index) {
+                        if (snapshot.data != null) {
+                          DocumentSnapshot ds = snapshot.data.docs[index];
+                          var docData = snapshot.data.docs[index].data();
+                          if (ds['suggestion'] == true) {
+                            return Row(
                               children: [
-                                Text(showData['title'],
-                                    style: GoogleFonts.kanit(
-                                        textStyle: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 14))),
-                                Text(showData['channelName'],
-                                    style: GoogleFonts.kanit(
-                                        textStyle: TextStyle(
-                                            color: Colors.grey[600],
-                                            fontSize: 14))),
+                                FlatButton(
+                                    onPressed: () {
+                                      Get.toNamed(
+                                        "/musicScreen",
+                                        arguments: {
+                                          "image": docData['image'],
+                                          "title": docData['title'],
+                                          "channelName": docData['channelName'],
+                                          "videoID": docData['videoID'],
+                                          "suggestion": docData['suggestion'],
+                                          "lyrics": docData['lyrics']
+                                        },
+                                      );
+                                    },
+                                    child: Container(
+                                        width: 160,
+                                        height: 100,
+                                        child: Image.network(
+                                          ds['image'],
+                                          fit: BoxFit.cover,
+                                        ))),
+                                Divider(
+                                  height: 105,
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Get.toNamed(
+                                      "/musicScreen",
+                                      arguments: {
+                                        "image": docData['image'],
+                                        "title": docData['title'],
+                                        "channelName": docData['channelName'],
+                                        "videoID": docData['videoID'],
+                                        "suggestion": docData['suggestion'],
+                                        "lyrics": docData['lyrics']
+                                      },
+                                    );
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(0.1),
+                                    child: Column(
+                                      children: [
+                                        Text(ds['title'],
+                                            style: GoogleFonts.kanit(
+                                                textStyle: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 14))),
+                                        Text(ds['channelName'],
+                                            style: GoogleFonts.kanit(
+                                                textStyle: TextStyle(
+                                                    color: Colors.grey[600],
+                                                    fontSize: 14))),
+                                      ],
+                                    ),
+                                  ),
+                                )
                               ],
-                            ),
-                          ),
-                        )
-                      ],
-                    );
-                  }),
+                            );
+                          } else {
+                            return Container();
+                          }
+                        }
+                      });
+                },
+              ),
             ),
           ),
           Divider(

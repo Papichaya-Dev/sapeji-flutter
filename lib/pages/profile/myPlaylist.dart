@@ -100,7 +100,8 @@ class _MyPlayListState extends State<MyPlayList> {
                                                 "videoID": docData['videoID'],
                                                 "suggestion":
                                                     docData['suggestion'],
-                                                "lyrics": docData['lyrics']
+                                                "lyrics": docData['lyrics'],
+                                                "fromPlaylist": true,
                                               },
                                             );
                                           },
@@ -125,7 +126,8 @@ class _MyPlayListState extends State<MyPlayList> {
                                                 "videoID": docData['videoID'],
                                                 "suggestion":
                                                     docData['suggestion'],
-                                                "lyrics": docData['lyrics']
+                                                "lyrics": docData['lyrics'],
+                                                "fromPlaylist": true,
                                               });
                                         },
                                         child: Padding(
