@@ -14,6 +14,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "995112676585-0jmqumgl4hbq9spv2od6n5bmuu1p93q5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fungji",
+            "certificate_hash": "919206605f296ed785d826ff0dfc35542724b871"
+          }
+        },
+        {
+          "client_id": "995112676585-92cevg66b7nugq2gahtc7a6fckh6rrs7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fungji",
+            "certificate_hash": "603789df35f1ad4795797641dc6abfcdce52874f"
+          }
+        },
+        {
           "client_id": "995112676585-fvp3uj4hl13nf0oojslksnk0fm8p7jji.apps.googleusercontent.com",
           "client_type": 3
         }
