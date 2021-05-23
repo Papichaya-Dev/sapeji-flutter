@@ -75,10 +75,10 @@ class _HomePageState extends State<HomePage> {
               child: StreamBuilder(
                 stream: musicsStream,
                 builder: (context, snapshot) {
-                  return ListView.builder(
-                      itemCount: snapshot.data.docs.length,
-                      itemBuilder: (context, index) {
-                        if (snapshot.data != null) {
+                  if (snapshot.data != null) {
+                    return ListView.builder(
+                        itemCount: snapshot.data.docs.length,
+                        itemBuilder: (context, index) {
                           DocumentSnapshot ds = snapshot.data.docs[index];
                           var docData = snapshot.data.docs[index].data();
                           if (ds['suggestion'] == true) {
@@ -145,8 +145,15 @@ class _HomePageState extends State<HomePage> {
                           } else {
                             return Container();
                           }
-                        }
-                      });
+                        });
+                  } else {
+                    return Center(
+                      child: Container(
+                          width: 50,
+                          height: 50,
+                          child: CircularProgressIndicator()),
+                    );
+                  }
                 },
               ),
             ),

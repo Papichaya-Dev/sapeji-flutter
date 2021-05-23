@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fungji/helperFunctions/sharedpref_helper.dart';
+import 'package:fungji/services/database.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -10,6 +12,28 @@ class MusicScreen extends StatefulWidget {
 
 class _MusicScreenState extends State<MusicScreen> {
   var data = Get.arguments;
+  String username;
+  Stream musicsStream;
+  Map musicData;
+  bool isAdd = false;
+
+  getUsername() async {
+    username = await SharedPreferenceHelper().getUserName();
+    setState(() {});
+  }
+
+  addMusicToMyPlayList(musicInfo) {
+    DatabaseMethods().addMusicToMyPlayList(musicInfo);
+    isAdd = true;
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    getUsername();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +76,7 @@ class _MusicScreenState extends State<MusicScreen> {
                       ),
                     ),
                   ),
-                  data['fromPlaylist'] == null
+                  data['fromPlaylist'] == null && isAdd == false
                       ? FlatButton(
                           disabledColor: Colors.transparent,
                           onPressed: () {},
@@ -64,7 +88,13 @@ class _MusicScreenState extends State<MusicScreen> {
                                 padding: const EdgeInsets.only(top: 10),
                                 child: GestureDetector(
                                     onTap: () {
-                                      print('Click for add Playlist');
+                                      Map<String, dynamic> newMusicData = {
+                                        ...data,
+                                        "username": username
+                                      };
+                                      Get.snackbar(
+                                          'Success', 'add to play list');
+                                      addMusicToMyPlayList(newMusicData);
                                     },
                                     child: Image.asset(
                                       "assets/images/add-playlist.png",

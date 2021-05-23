@@ -79,16 +79,14 @@ class _ShuffleSongPage2State extends State<ShuffleSongPage2> {
           builder: (context, snapshot) {
             if (snapshot.data != null) {
               randomController.setListItemCount(snapshot.data.docs.length);
+              var ds =
+                  snapshot.data.docs[randomController.randomSongIndex.value];
               Map<String, dynamic> newMusicData = {
-                "image": snapshot
-                    .data.docs[randomController.randomSongIndex.value]['image'],
-                "title": snapshot
-                    .data.docs[randomController.randomSongIndex.value]['title'],
-                "channelName":
-                    snapshot.data.docs[randomController.randomSongIndex.value]
-                        ['channelName'],
-                "videoID": snapshot.data
-                    .docs[randomController.randomSongIndex.value]['videoID'],
+                "image": ds['image'],
+                "title": ds['title'],
+                "channelName": ds['channelName'],
+                "videoID": ds['videoID'],
+                "lyrics": ds['lyrics'],
                 "username": username
               };
 
