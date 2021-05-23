@@ -39,7 +39,7 @@ class _SystemPlayListState extends State<SystemPlayList> {
           decoration: BoxDecoration(
             image: DecorationImage(
               image: NetworkImage(
-                  "https://firebasestorage.googleapis.com/v0/b/fungji-9fb16.appspot.com/o/love-background.JPG?alt=media&token=1e29ca44-2965-4cc0-8c04-039b4dd0bbde"),
+                  "https://firebasestorage.googleapis.com/v0/b/fungji-9fb16.appspot.com/o/background-playlist.JPG?alt=media&token=7ff98a5d-52d7-4f14-9772-0f0f809095a2"),
               fit: BoxFit.cover,
             ),
           ),
