@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fungji/services/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -16,12 +17,15 @@ class _ShufflePageState extends State<ShufflePage> {
           children: [
             Padding(
                 padding: EdgeInsets.symmetric(vertical: 20),
-                child: Text('ไม่รู้จะฟังเพลงอะไรใช่มั้ย ?',
+                child: Text(
+                    AppLocalizations.of(context)
+                        .translate('dont_know_song_to_listen'),
                     textAlign: TextAlign.left,
                     style: GoogleFonts.kanit(fontSize: 22))),
             Padding(
                 padding: EdgeInsets.zero,
-                child: Text('ให้ fungji ช่วยสิ',
+                child: Text(
+                    AppLocalizations.of(context).translate('our_can_help'),
                     textAlign: TextAlign.left,
                     style: GoogleFonts.kanit(
                         fontSize: 25, fontWeight: FontWeight.bold))),
