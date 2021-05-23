@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
-import 'dart:math';
 
 class ShuffleSongPage extends StatefulWidget {
   @override
@@ -15,6 +14,7 @@ class ShuffleSongPage extends StatefulWidget {
 
 class _ShuffleSongPageState extends State<ShuffleSongPage> {
   final randomController = Get.find<RandomController>();
+
   DocumentReference linkRef;
   bool showItem = false;
   int randNum = 1;
@@ -125,8 +125,39 @@ class _ShuffleSongPageState extends State<ShuffleSongPage> {
                       ),
                     ));
                   }),
-                  Text(snapshot.data
-                      .docs[randomController.randomSongIndex.value]['title']),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10, bottom: 10),
+                    child: Text(
+                        snapshot.data
+                                .docs[randomController.randomSongIndex.value]
+                            ['title'],
+                        style: GoogleFonts.kanit(
+                            fontSize: 23, fontWeight: FontWeight.bold)),
+                  ),
+                  // SizedBox(
+                  //   height: 45,
+                  //   width: 230,
+                  //   child: OutlineButton(
+                  //     color: Colors.black,
+                  //     child: new Text(
+                  //       'RANDOM AGAIN',
+                  //       style: GoogleFonts.kanit(
+                  //           textStyle: TextStyle(
+                  //               color: Colors.black,
+                  //               fontSize: 20,
+                  //               fontWeight: FontWeight.bold)),
+                  //     ),
+                  //     borderSide: BorderSide(color: Colors.black),
+                  //     onPressed: () {
+                  //       // randomController.randomNumber();
+                  //       randomController.randomNumber();
+                  //       Get.offAndToNamed('/shuffleSongScreen2');
+                  //       print('Click for Random again');
+                  //     },
+                  //     shape: new RoundedRectangleBorder(
+                  //         borderRadius: new BorderRadius.circular(20.0)),
+                  //   ),
+                  // ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: FlatButton(
@@ -148,7 +179,7 @@ class _ShuffleSongPageState extends State<ShuffleSongPage> {
                       shape: RoundedRectangleBorder(
                           borderRadius: new BorderRadius.circular(30.0)),
                       height: 50,
-                      color: Colors.purpleAccent[400],
+                      color: Colors.deepPurple[300],
                       textColor: Colors.white,
                     ),
                   ),
@@ -175,7 +206,7 @@ class _ShuffleSongPageState extends State<ShuffleSongPage> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: new BorderRadius.circular(30.0)),
                             height: 50,
-                            color: Colors.purpleAccent[400],
+                            color: Colors.green[400],
                             textColor: Colors.white,
                           ),
                         )
