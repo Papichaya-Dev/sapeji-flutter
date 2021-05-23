@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:fungji/helperFunctions/sharedpref_helper.dart';
 import 'package:fungji/layouts/musicList.dart';
+import 'package:fungji/layouts/skeletons.dart';
 import 'package:fungji/services/database.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -89,6 +90,10 @@ class _HomePageState extends State<HomePage> {
                             margin: const EdgeInsets.only(right: 20),
                             child: Image.network(
                               ds['image-Cover'],
+                              loadingBuilder: (context, child, progress) =>
+                                  progress == null
+                                      ? child
+                                      : Skeleton().sysMusicListThumbnailImage(),
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -105,38 +110,6 @@ class _HomePageState extends State<HomePage> {
               },
             ),
           ),
-          // Expanded(
-          //   child: ListView.builder(
-          //     shrinkWrap: true,
-          //     scrollDirection: Axis.horizontal,
-          //     itemCount: 1,
-          //     itemBuilder: (BuildContext context, int index) => Card(
-          //       child: Center(
-          //           child: Row(
-          //         children: <Widget>[
-          //           IconButton(
-          //             iconSize: 220,
-          //             icon: Image.asset(
-          //               "assets/images/friend-zone-playlist.jpg",
-          //             ),
-          //             onPressed: () {
-          //               print('Click for Playlist-Friend-zone');
-          //             },
-          //           ),
-          //           IconButton(
-          //             iconSize: 205,
-          //             icon: Image.asset(
-          //               "assets/images/love-playlist.jpg",
-          //             ),
-          //             onPressed: () {
-          //               print('Click for Playlist-Love');
-          //             },
-          //           ),
-          //         ],
-          //       )),
-          //     ),
-          //   ),
-          // ),
         ],
       ),
     );

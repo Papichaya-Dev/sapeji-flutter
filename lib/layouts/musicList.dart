@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:fungji/layouts/skeletons.dart';
 import 'package:fungji/services/database.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -60,6 +61,12 @@ class _MusicListsState extends State<MusicLists> {
                                     height: 100,
                                     child: Image.network(
                                       ds['image'],
+                                      loadingBuilder:
+                                          (context, child, progress) =>
+                                              progress == null
+                                                  ? child
+                                                  : Skeleton()
+                                                      .musicThumbnailImage(),
                                       fit: BoxFit.cover,
                                     ))),
                             Divider(
