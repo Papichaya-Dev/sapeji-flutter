@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fungji/helperFunctions/sharedpref_helper.dart';
+import 'package:fungji/layouts/skeletons.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -42,6 +43,10 @@ class _ProfilePageState extends State<ProfilePage> {
                       child: (Image.network(
                         userProfileImage,
                         width: 80,
+                        loadingBuilder: (context, child, progress) =>
+                            progress == null
+                                ? child
+                                : Skeleton().profileImage(),
                         alignment: Alignment.center,
                       )),
                     )

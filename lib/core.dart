@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fungji/pages/homepage/homepage.dart';
 import 'package:fungji/pages/profile/profilepage.dart';
 import 'package:fungji/pages/shuffle/shufflepage.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Core extends StatefulWidget {
@@ -29,7 +30,7 @@ class _CoreState extends State<Core> {
           IconButton(
             icon: Image.asset("assets/images/logout.png"),
             onPressed: () {
-              print('Click for logout');
+              Get.offAllNamed('/');
             },
           ),
         ],
