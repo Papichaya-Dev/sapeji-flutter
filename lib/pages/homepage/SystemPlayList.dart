@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fungji/layouts/musicListView.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -43,76 +44,9 @@ class _SystemPlayListState extends State<SystemPlayList> {
                       textStyle: TextStyle(color: Colors.black, fontSize: 24))),
             ),
             Expanded(
-              child: ListView.builder(
-                  itemCount: 3,
-                  itemBuilder: (context, index) {
-                    // print(data['list'][3]['title']);
-                    var ds = data['list'][index];
-                    print(ds['chanelname']);
-                    return SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: [
-                          FlatButton(
-                              onPressed: () {
-                                Get.toNamed(
-                                  "/musicScreen",
-                                  arguments: {
-                                    "image": ds['image'],
-                                    "title": ds['title'],
-                                    "channelName": ds['chanelname'],
-                                    "videoID": ds['videoID'],
-                                    "suggestion": ds['suggestion'],
-                                    "lyrics": ds['lyrics']
-                                  },
-                                );
-                              },
-                              child: Container(
-                                  width: 160,
-                                  height: 100,
-                                  child: Image.network(
-                                    ds['image'],
-                                    fit: BoxFit.cover,
-                                  ))),
-                          Divider(
-                            height: 105,
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              Get.toNamed(
-                                "/musicScreen",
-                                arguments: {
-                                  "image": ds['image'],
-                                  "title": ds['title'],
-                                  "channelName": ds['channelName'],
-                                  "videoID": ds['videoID'],
-                                  "suggestion": ds['suggestion'],
-                                  "lyrics": ds['lyrics']
-                                },
-                              );
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.all(0.1),
-                              child: Column(
-                                children: [
-                                  Text(ds['title'],
-                                      style: GoogleFonts.kanit(
-                                          textStyle: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 14))),
-                                  Text(ds['chanelname'],
-                                      style: GoogleFonts.kanit(
-                                          textStyle: TextStyle(
-                                              color: Colors.grey[600],
-                                              fontSize: 14))),
-                                ],
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    );
-                  }),
+              child: MusicListView(
+                data: data,
+              ),
             ),
           ],
         ));

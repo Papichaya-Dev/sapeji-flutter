@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:fungji/helperFunctions/sharedpref_helper.dart';
+import 'package:fungji/layouts/musicList.dart';
 import 'package:fungji/services/database.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -49,89 +50,8 @@ class _HomePageState extends State<HomePage> {
           SizedBox(
             height: 300,
             child: Expanded(
-              child: StreamBuilder(
-                stream: musicsStream,
-                builder: (context, snapshot) {
-                  if (snapshot.data != null) {
-                    return ListView.builder(
-                        itemCount: snapshot.data.docs.length,
-                        itemBuilder: (context, index) {
-                          DocumentSnapshot ds = snapshot.data.docs[index];
-                          var docData = snapshot.data.docs[index].data();
-                          if (ds['suggestion'] == true) {
-                            return Row(
-                              children: [
-                                FlatButton(
-                                    onPressed: () {
-                                      Get.toNamed(
-                                        "/musicScreen",
-                                        arguments: {
-                                          "image": docData['image'],
-                                          "title": docData['title'],
-                                          "channelName": docData['channelName'],
-                                          "videoID": docData['videoID'],
-                                          "suggestion": docData['suggestion'],
-                                          "lyrics": docData['lyrics']
-                                        },
-                                      );
-                                    },
-                                    child: Container(
-                                        width: 160,
-                                        height: 100,
-                                        child: Image.network(
-                                          ds['image'],
-                                          fit: BoxFit.cover,
-                                        ))),
-                                Divider(
-                                  height: 105,
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    Get.toNamed(
-                                      "/musicScreen",
-                                      arguments: {
-                                        "image": docData['image'],
-                                        "title": docData['title'],
-                                        "channelName": docData['channelName'],
-                                        "videoID": docData['videoID'],
-                                        "suggestion": docData['suggestion'],
-                                        "lyrics": docData['lyrics']
-                                      },
-                                    );
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(0.1),
-                                    child: Column(
-                                      children: [
-                                        Text(ds['title'],
-                                            style: GoogleFonts.kanit(
-                                                textStyle: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 14))),
-                                        Text(ds['channelName'],
-                                            style: GoogleFonts.kanit(
-                                                textStyle: TextStyle(
-                                                    color: Colors.grey[600],
-                                                    fontSize: 14))),
-                                      ],
-                                    ),
-                                  ),
-                                )
-                              ],
-                            );
-                          } else {
-                            return Container();
-                          }
-                        });
-                  } else {
-                    return Center(
-                      child: Container(
-                          width: 50,
-                          height: 50,
-                          child: CircularProgressIndicator()),
-                    );
-                  }
-                },
+              child: MusicLists(
+                myPlaylistStream: musicsStream,
               ),
             ),
           ),

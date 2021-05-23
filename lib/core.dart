@@ -55,19 +55,34 @@ class _CoreState extends State<Core> {
           BottomNavigationBarItem(
               icon: Image.asset(
                 "assets/images/shuffle.png",
+                width: 30,
+                color: Colors.black45,
+              ),
+              activeIcon: Image.asset(
+                "assets/images/shuffle.png",
                 width: 40,
               ),
               label: "Random"),
           BottomNavigationBarItem(
               icon: Image.asset(
                 "assets/images/home.png",
-                width: 50,
+                width: 25,
+                color: Colors.black45,
+              ),
+              activeIcon: Image.asset(
+                "assets/images/home.png",
+                width: 40,
               ),
               label: "Home"),
           BottomNavigationBarItem(
               icon: Image.asset(
                 "assets/images/profile.png",
                 width: 30,
+                color: Colors.black45,
+              ),
+              activeIcon: Image.asset(
+                "assets/images/profile.png",
+                width: 40,
               ),
               label: "Profile"),
         ],
