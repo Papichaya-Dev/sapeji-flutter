@@ -36,14 +36,16 @@ class _ProfilePageState extends State<ProfilePage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(40),
-                child: (Image.network(
-                  userProfileImage,
-                  width: 80,
-                  alignment: Alignment.center,
-                )),
-              ),
+              userProfileImage != null
+                  ? ClipRRect(
+                      borderRadius: BorderRadius.circular(40),
+                      child: (Image.network(
+                        userProfileImage,
+                        width: 80,
+                        alignment: Alignment.center,
+                      )),
+                    )
+                  : CircularProgressIndicator(),
               Text('${username} \n ${userEmail}',
                   style: GoogleFonts.kanit(
                       textStyle: TextStyle(color: Colors.black, fontSize: 16))),
@@ -69,7 +71,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 padding: EdgeInsets.only(right: 15.0),
                 disabledColor: Colors.transparent,
                 onPressed: () {
-                  print('wtf');
                   Get.toNamed('/myPlaylist');
                 },
                 child: new Row(
