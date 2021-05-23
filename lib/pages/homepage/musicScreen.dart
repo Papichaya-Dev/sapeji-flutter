@@ -117,6 +117,7 @@ class _MusicScreenState extends State<MusicScreen> {
                         initialVideoId:
                             YoutubePlayer.convertUrlToId(data['videoID']),
                         flags: YoutubePlayerFlags(
+                          autoPlay: false,
                           enableCaption: true,
                         )),
                     showVideoProgressIndicator: true,

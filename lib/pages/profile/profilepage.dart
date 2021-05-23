@@ -97,41 +97,6 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              FlatButton(
-                padding: EdgeInsets.only(left: 15.0),
-                disabledColor: Colors.transparent,
-                onPressed: () {},
-                child: new Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    IconButton(
-                      iconSize: 80,
-                      icon: Image.asset(
-                        "assets/images/playlist.png",
-                      ),
-                      onPressed: () {
-                        print('Click for Playlist-friendzone');
-                      },
-                    ),
-                    new Text(' เพลย์ลิสต์เฟรนด์โซน',
-                        style: GoogleFonts.kanit(
-                            textStyle: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500,
-                        ))),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(40),
-              ),
-            ],
-          ),
         ],
       ),
     );
