@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:fungji/helperFunctions/sharedpref_helper.dart';
 import 'package:fungji/services/database.dart';
 import 'package:get/get.dart';
@@ -11,40 +12,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List youtubeList = [
-    {
-      "image":
-          "https://firebasestorage.googleapis.com/v0/b/fungji-9fb16.appspot.com/o/song_1-homepage.JPG?alt=media&token=ffd197b0-1098-4869-b415-a063b71df187",
-      "title": "BUT HATE PANIC - รู้บ้างไหมเธอ ?",
-      "channelName": "BUT HATE PANIC",
-      "videoID": "https://youtu.be/8DSRSEIjZL4",
-      "lyrics":
-          "เก็บมันเอาไว้ ช่วงเวลา ก่อนที่เธอ จะจากไป\n เหลือแค่รอย น้ำตา ที่ยังคงอยู่ ไม่จางหายไป ในวันนี้จะเป็นไร\nเธอยังจำได้ใช่ไหม ว่าวันนี้คือวันพิเศษ ที่มีกับเธอ ที่ฉัน รู้ตัวว่าเธอได้เปลื่ยนไป ที่ฉัน เข้าใจทุกอย่างที่ผ่านมา ว่ามันเป็นเรื่องหลอก ที่ยังคงอยู่(ในจิตใจไม่จางไม่หาย)ว่าตัวฉันควรหยุดที่ตรงนี้ รู้บ้างไหมเธอ ว่าฉันไม่เคยได้พบใคร (ที่ดีเหมือนเธอเลยสักครั้ง)รู้บ้างไหมเธอ กับความรู้สึกที่บอกไปเป็นเพียงแค่ลม ที่พัดผ่านใจเธอ"
-    },
-    {
-      "image":
-          "https://firebasestorage.googleapis.com/v0/b/fungji-9fb16.appspot.com/o/song_2-homepage.JPG?alt=media&token=cd983d7f-688c-40d4-bd30-31f8d7543eab",
-      "title": "PLASUI PLASUI - หากฉันรู้",
-      "channelName": "PLASUI PLASUI",
-      "videoID": "https://youtu.be/1c1wplC1Enc"
-    },
-    {
-      "image":
-          "https://firebasestorage.googleapis.com/v0/b/fungji-9fb16.appspot.com/o/song_3-homepage.JPG?alt=media&token=4e4dd1cd-4077-4939-94f1-692a387049ab",
-      "title": "Don't Look Back In Anger",
-      "channelName": "Oasis",
-      "videoID": "https://youtu.be/r8OipmKFDeM"
-    },
-  ];
-
   String username;
   Stream musicsStream;
+  Stream sysPlayListStream;
 
   final utube =
       RegExp(r"^(https?\:\/\/)?((www\.)?youtube\.com|youtu\.?be)\/.+$");
 
   getAllMusic() async {
     musicsStream = await DatabaseMethods().getMusicList();
+    sysPlayListStream = await DatabaseMethods().getSysMusicList();
     username = await SharedPreferenceHelper().getUserName();
     setState(() {});
   }
@@ -170,37 +147,76 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           Expanded(
-            child: ListView.builder(
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemCount: 1,
-              itemBuilder: (BuildContext context, int index) => Card(
-                child: Center(
-                    child: Row(
-                  children: <Widget>[
-                    IconButton(
-                      iconSize: 220,
-                      icon: Image.asset(
-                        "assets/images/friend-zone-playlist.jpg",
-                      ),
-                      onPressed: () {
-                        print('Click for Playlist-Friend-zone');
-                      },
-                    ),
-                    IconButton(
-                      iconSize: 205,
-                      icon: Image.asset(
-                        "assets/images/love-playlist.jpg",
-                      ),
-                      onPressed: () {
-                        print('Click for Playlist-Love');
-                      },
-                    ),
-                  ],
-                )),
-              ),
+            child: StreamBuilder(
+              stream: sysPlayListStream,
+              builder: (context, snapshot) {
+                if (snapshot.data != null) {
+                  return ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: snapshot.data.docs.length,
+                      itemBuilder: (context, index) {
+                        DocumentSnapshot ds = snapshot.data.docs[index];
+                        var docData = snapshot.data.docs[index].data();
+                        return GestureDetector(
+                          onTap: () {
+                            Get.toNamed('/sysPlayList', arguments: {
+                              "list": docData['list'],
+                              "list-Name": docData['list-Name']
+                            });
+                          },
+                          child: Container(
+                            width: 300,
+                            margin: const EdgeInsets.only(right: 20),
+                            child: Image.network(
+                              ds['image-Cover'],
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        );
+                      });
+                } else {
+                  return Center(
+                    child: Container(
+                        width: 50,
+                        height: 50,
+                        child: CircularProgressIndicator()),
+                  );
+                }
+              },
             ),
           ),
+          // Expanded(
+          //   child: ListView.builder(
+          //     shrinkWrap: true,
+          //     scrollDirection: Axis.horizontal,
+          //     itemCount: 1,
+          //     itemBuilder: (BuildContext context, int index) => Card(
+          //       child: Center(
+          //           child: Row(
+          //         children: <Widget>[
+          //           IconButton(
+          //             iconSize: 220,
+          //             icon: Image.asset(
+          //               "assets/images/friend-zone-playlist.jpg",
+          //             ),
+          //             onPressed: () {
+          //               print('Click for Playlist-Friend-zone');
+          //             },
+          //           ),
+          //           IconButton(
+          //             iconSize: 205,
+          //             icon: Image.asset(
+          //               "assets/images/love-playlist.jpg",
+          //             ),
+          //             onPressed: () {
+          //               print('Click for Playlist-Love');
+          //             },
+          //           ),
+          //         ],
+          //       )),
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );

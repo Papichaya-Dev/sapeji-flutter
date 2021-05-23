@@ -12,6 +12,10 @@ class DatabaseMethods {
     return await firestore.collection('musics').snapshots();
   }
 
+  Future<Stream<QuerySnapshot>> getSysMusicList() async {
+    return await firestore.collection('sysPlayList').snapshots();
+  }
+
   Future<Stream<QuerySnapshot>> getMyPlaylist(username) async {
     print(username);
     return await firestore
