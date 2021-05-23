@@ -53,6 +53,7 @@ class _HomePageState extends State<HomePage> {
             child: Expanded(
               child: MusicLists(
                 myPlaylistStream: musicsStream,
+                isFromMyPlaylist: false,
               ),
             ),
           ),

@@ -76,7 +76,7 @@ class _MusicScreenState extends State<MusicScreen> {
                       ),
                     ),
                   ),
-                  data['fromPlaylist'] == null && isAdd == false
+                  data['fromPlaylist'] == false && isAdd == false
                       ? FlatButton(
                           disabledColor: Colors.transparent,
                           onPressed: () {},

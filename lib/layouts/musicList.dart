@@ -7,8 +7,10 @@ import 'package:google_fonts/google_fonts.dart';
 
 class MusicLists extends StatefulWidget {
   final Stream myPlaylistStream;
+  final bool isFromMyPlaylist;
 
-  const MusicLists({Key key, this.myPlaylistStream}) : super(key: key);
+  const MusicLists({Key key, this.myPlaylistStream, this.isFromMyPlaylist})
+      : super(key: key);
   @override
   _MusicListsState createState() => _MusicListsState();
 }
@@ -52,7 +54,7 @@ class _MusicListsState extends State<MusicLists> {
                                       "videoID": docData['videoID'],
                                       "suggestion": docData['suggestion'],
                                       "lyrics": docData['lyrics'],
-                                      "fromPlaylist": true,
+                                      "fromPlaylist": widget.isFromMyPlaylist,
                                     },
                                   );
                                 },
