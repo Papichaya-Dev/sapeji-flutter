@@ -16,6 +16,7 @@ class _MusicScreenState extends State<MusicScreen> {
   Stream musicsStream;
   Map musicData;
   bool isAdd = false;
+  YoutubePlayerController _controller;
 
   getUsername() async {
     username = await SharedPreferenceHelper().getUserName();
@@ -31,6 +32,13 @@ class _MusicScreenState extends State<MusicScreen> {
   @override
   void initState() {
     getUsername();
+    _controller = YoutubePlayerController(
+      initialVideoId: YoutubePlayer.convertUrlToId(data['videoID']),
+      flags: YoutubePlayerFlags(
+        autoPlay: true,
+        enableCaption: true,
+      ),
+    );
     super.initState();
   }
 
@@ -40,7 +48,7 @@ class _MusicScreenState extends State<MusicScreen> {
       appBar: AppBar(
         titleSpacing: -5,
         backgroundColor: Colors.white,
-        title: Text('fungji',
+        title: Text('sapeji',
             style:
                 GoogleFonts.kanit(textStyle: TextStyle(color: Colors.black))),
         actions: <Widget>[
@@ -67,16 +75,7 @@ class _MusicScreenState extends State<MusicScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    margin: const EdgeInsets.only(left: 10),
-                    child: Text(
-                      data['title'],
-                      style: GoogleFonts.kanit(
-                        textStyle: TextStyle(color: Colors.black, fontSize: 16),
-                      ),
-                    ),
-                  ),
-                  data['fromPlaylist'] == null && isAdd == false
+                  data['fromPlaylist'] == false && isAdd == false
                       ? FlatButton(
                           disabledColor: Colors.transparent,
                           onPressed: () {},
@@ -85,7 +84,8 @@ class _MusicScreenState extends State<MusicScreen> {
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
                               Padding(
-                                padding: const EdgeInsets.only(top: 10),
+                                padding:
+                                    const EdgeInsets.only(top: 10, left: 275),
                                 child: GestureDetector(
                                     onTap: () {
                                       Map<String, dynamic> newMusicData = {
@@ -93,7 +93,7 @@ class _MusicScreenState extends State<MusicScreen> {
                                         "username": username
                                       };
                                       Get.snackbar(
-                                          'Success', 'add to play list');
+                                          'Success', 'add to your playlist');
                                       addMusicToMyPlayList(newMusicData);
                                     },
                                     child: Image.asset(
@@ -109,33 +109,49 @@ class _MusicScreenState extends State<MusicScreen> {
                         )
                 ],
               ),
-              Flexible(
-                child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 4),
-                  child: YoutubePlayer(
-                    controller: YoutubePlayerController(
-                        initialVideoId:
-                            YoutubePlayer.convertUrlToId(data['videoID']),
-                        flags: YoutubePlayerFlags(
-                          mute: false,
-                          enableCaption: false,
-                          autoPlay: false,
-                        )),
-                    showVideoProgressIndicator: true,
-                    progressIndicatorColor: Colors.blue,
-                    progressColors: ProgressBarColors(
-                        playedColor: Colors.blue,
-                        handleColor: Colors.blueAccent),
+              Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: Flexible(
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 4),
+                    child: YoutubePlayer(
+                      controller: _controller,
+                      showVideoProgressIndicator: true,
+                      progressIndicatorColor: Colors.blue,
+                      progressColors: ProgressBarColors(
+                          playedColor: Colors.blue,
+                          handleColor: Colors.blueAccent),
+                    ),
                   ),
                 ),
               ),
               SizedBox(
                 height: 20,
               ),
-              Text(
-                'เนื้อเพลง',
-                style: GoogleFonts.kanit(
-                  textStyle: TextStyle(color: Colors.black, fontSize: 24),
+              Center(
+                child: Container(
+                  child: Text(
+                    data['title'],
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.kanit(
+                      textStyle: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 10),
+                child: Text(
+                  'เนื้อเพลง',
+                  style: GoogleFonts.kanit(
+                    textStyle: TextStyle(
+                        color: Colors.grey[700],
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
               SizedBox(
@@ -143,7 +159,7 @@ class _MusicScreenState extends State<MusicScreen> {
               ),
               Expanded(
                   child: Container(
-                margin: const EdgeInsets.only(bottom: 10),
+                margin: const EdgeInsets.only(bottom: 10, left: 10),
                 child: ListView.builder(
                   shrinkWrap: true,
                   itemCount: data['lyrics'].toString().split("*//").length,
@@ -155,7 +171,7 @@ class _MusicScreenState extends State<MusicScreen> {
                           allText[index],
                           style: GoogleFonts.kanit(
                             textStyle:
-                                TextStyle(color: Colors.black, fontSize: 14),
+                                TextStyle(color: Colors.black, fontSize: 16),
                           ),
                         ),
                       ],

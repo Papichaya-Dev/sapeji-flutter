@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fungji/helperFunctions/sharedpref_helper.dart';
+import 'package:fungji/layouts/skeletons.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -31,31 +32,49 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: NetworkImage(
+              "https://firebasestorage.googleapis.com/v0/b/fungji-9fb16.appspot.com/o/background-sapeji.JPG?alt=media&token=a775ffdd-236d-4cd6-8095-1406c67c4454"),
+          fit: BoxFit.cover,
+        ),
+      ),
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              userProfileImage != null
-                  ? ClipRRect(
-                      borderRadius: BorderRadius.circular(40),
-                      child: (Image.network(
-                        userProfileImage,
-                        width: 80,
-                        alignment: Alignment.center,
-                      )),
-                    )
-                  : CircularProgressIndicator(),
-              Text('${username} \n ${userEmail}',
-                  style: GoogleFonts.kanit(
-                      textStyle: TextStyle(color: Colors.black, fontSize: 16))),
-              Padding(
-                padding: EdgeInsets.all(40),
-              ),
-              Divider(
-                height: 120,
-              ),
-            ],
+          Padding(
+            padding: const EdgeInsets.only(left: 22),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                userProfileImage != null
+                    ? ClipRRect(
+                        borderRadius: BorderRadius.circular(40),
+                        child: (Image.network(
+                          userProfileImage,
+                          width: 80,
+                          loadingBuilder: (context, child, progress) =>
+                              progress == null
+                                  ? child
+                                  : Skeleton().profileImage(),
+                          alignment: Alignment.center,
+                        )),
+                      )
+                    : CircularProgressIndicator(),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text('${username} \n${userEmail}',
+                      style: GoogleFonts.kanit(
+                          textStyle:
+                              TextStyle(color: Colors.black, fontSize: 17))),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(40),
+                ),
+                Divider(
+                  height: 120,
+                ),
+              ],
+            ),
           ),
           Divider(
             height: 30,
@@ -83,41 +102,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       height: 80,
                     ),
                     new Text(' เพลย์ลิสต์ของฉัน',
-                        style: GoogleFonts.kanit(
-                            textStyle: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500,
-                        ))),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(40),
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              FlatButton(
-                padding: EdgeInsets.only(left: 15.0),
-                disabledColor: Colors.transparent,
-                onPressed: () {},
-                child: new Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    IconButton(
-                      iconSize: 80,
-                      icon: Image.asset(
-                        "assets/images/playlist.png",
-                      ),
-                      onPressed: () {
-                        print('Click for Playlist-friendzone');
-                      },
-                    ),
-                    new Text(' เพลย์ลิสต์เฟรนด์โซน',
                         style: GoogleFonts.kanit(
                             textStyle: TextStyle(
                           color: Colors.black,
