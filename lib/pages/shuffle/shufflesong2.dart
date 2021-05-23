@@ -128,6 +128,15 @@ class _ShuffleSongPage2State extends State<ShuffleSongPage2> {
                     ));
                   }),
                   Padding(
+                    padding: const EdgeInsets.only(top: 10, bottom: 10),
+                    child: Text(
+                        snapshot.data
+                                .docs[randomController.randomSongIndex.value]
+                            ['title'],
+                        style: GoogleFonts.kanit(
+                            fontSize: 23, fontWeight: FontWeight.bold)),
+                  ),
+                  Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: FlatButton(
                       onPressed: () {
@@ -148,7 +157,7 @@ class _ShuffleSongPage2State extends State<ShuffleSongPage2> {
                       shape: RoundedRectangleBorder(
                           borderRadius: new BorderRadius.circular(30.0)),
                       height: 50,
-                      color: Colors.purpleAccent[400],
+                      color: Colors.deepPurple[300],
                       textColor: Colors.white,
                     ),
                   ),
@@ -175,7 +184,7 @@ class _ShuffleSongPage2State extends State<ShuffleSongPage2> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: new BorderRadius.circular(30.0)),
                             height: 50,
-                            color: Colors.purpleAccent[400],
+                            color: Colors.green[400],
                             textColor: Colors.white,
                           ),
                         )
