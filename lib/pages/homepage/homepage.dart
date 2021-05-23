@@ -60,7 +60,14 @@ class _HomePageState extends State<HomePage> {
                             onPressed: () {
                               Get.toNamed(
                                 "/musicScreen",
-                                arguments: showData['videoID'],
+                                arguments: {
+                                  "image": showData['image'],
+                                  "title": showData['title'],
+                                  "channelName": showData['channelName'],
+                                  "videoID": showData['videoID'],
+                                  "suggestion": showData['suggestion'],
+                                  "lyrics": showData['lyrics']
+                                },
                               );
                             },
                             child: Container(
@@ -75,8 +82,17 @@ class _HomePageState extends State<HomePage> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            Get.toNamed("/musicScreen",
-                                arguments: showData['videoID']);
+                            Get.toNamed(
+                              "/musicScreen",
+                              arguments: {
+                                "image": showData['image'],
+                                "title": showData['title'],
+                                "channelName": showData['channelName'],
+                                "videoID": showData['videoID'],
+                                "suggestion": showData['suggestion'],
+                                "lyrics": showData['lyrics']
+                              },
+                            );
                           },
                           child: Padding(
                             padding: const EdgeInsets.all(0.1),

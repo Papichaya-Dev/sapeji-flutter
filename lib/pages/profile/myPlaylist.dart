@@ -70,6 +70,7 @@ class _MyPlayListState extends State<MyPlayList> {
                             itemCount: snapshot.data.docs.length,
                             itemBuilder: (context, index) {
                               DocumentSnapshot ds = snapshot.data.docs[index];
+                              var docData = snapshot.data.docs[index].data();
                               return Dismissible(
                                   key: UniqueKey(),
                                   direction: DismissDirection.endToStart,
@@ -91,7 +92,16 @@ class _MyPlayListState extends State<MyPlayList> {
                                           onPressed: () {
                                             Get.toNamed(
                                               "/musicScreen",
-                                              arguments: ds['videoID'],
+                                              arguments: {
+                                                "image": docData['image'],
+                                                "title": docData['title'],
+                                                "channelName":
+                                                    docData['channelName'],
+                                                "videoID": docData['videoID'],
+                                                "suggestion":
+                                                    docData['suggestion'],
+                                                "lyrics": docData['lyrics']
+                                              },
                                             );
                                           },
                                           child: Container(
@@ -107,7 +117,16 @@ class _MyPlayListState extends State<MyPlayList> {
                                       GestureDetector(
                                         onTap: () {
                                           Get.toNamed("/musicScreen",
-                                              arguments: ds['videoID']);
+                                              arguments: {
+                                                "image": docData['image'],
+                                                "title": docData['title'],
+                                                "channelName":
+                                                    docData['channelName'],
+                                                "videoID": docData['videoID'],
+                                                "suggestion":
+                                                    docData['suggestion'],
+                                                "lyrics": docData['lyrics']
+                                              });
                                         },
                                         child: Padding(
                                           padding: const EdgeInsets.all(0.1),
