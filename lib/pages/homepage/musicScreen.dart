@@ -16,6 +16,7 @@ class _MusicScreenState extends State<MusicScreen> {
   Stream musicsStream;
   Map musicData;
   bool isAdd = false;
+  YoutubePlayerController _controller;
 
   getUsername() async {
     username = await SharedPreferenceHelper().getUserName();
@@ -31,6 +32,13 @@ class _MusicScreenState extends State<MusicScreen> {
   @override
   void initState() {
     getUsername();
+    _controller = YoutubePlayerController(
+      initialVideoId: YoutubePlayer.convertUrlToId(data['videoID']),
+      flags: YoutubePlayerFlags(
+        autoPlay: true,
+        enableCaption: true,
+      ),
+    );
     super.initState();
   }
 
@@ -76,7 +84,7 @@ class _MusicScreenState extends State<MusicScreen> {
                       ),
                     ),
                   ),
-                  data['fromPlaylist'] == null && isAdd == false
+                  data['fromPlaylist'] == false && isAdd == false
                       ? FlatButton(
                           disabledColor: Colors.transparent,
                           onPressed: () {},
@@ -113,13 +121,7 @@ class _MusicScreenState extends State<MusicScreen> {
                 child: Container(
                   margin: EdgeInsets.symmetric(horizontal: 4),
                   child: YoutubePlayer(
-                    controller: YoutubePlayerController(
-                        initialVideoId:
-                            YoutubePlayer.convertUrlToId(data['videoID']),
-                        flags: YoutubePlayerFlags(
-                          autoPlay: false,
-                          enableCaption: true,
-                        )),
+                    controller: _controller,
                     showVideoProgressIndicator: true,
                     progressIndicatorColor: Colors.blue,
                     progressColors: ProgressBarColors(

@@ -64,6 +64,7 @@ class _MyPlayListState extends State<MyPlayList> {
               ),
               MusicLists(
                 myPlaylistStream: myPlaylistStream,
+                isFromMyPlaylist: true,
               )
             ],
           ),
