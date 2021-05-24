@@ -76,7 +76,7 @@ class _MusicListViewState extends State<MusicListView> {
                         Text(ds['title'],
                             style: GoogleFonts.kanit(
                                 textStyle: TextStyle(
-                                    color: Colors.black, fontSize: 14))),
+                                    color: Colors.black, fontSize: 16))),
                         Text(ds['channelName'],
                             style: GoogleFonts.kanit(
                                 textStyle: TextStyle(

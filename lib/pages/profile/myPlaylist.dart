@@ -53,15 +53,24 @@ class _MyPlayListState extends State<MyPlayList> {
       ),
       body: Center(
         child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage(
+                  "https://firebasestorage.googleapis.com/v0/b/fungji-9fb16.appspot.com/o/background-myplaylist.JPG?alt=media&token=df4f711f-0d0f-46d9-a208-60757236762a"),
+              fit: BoxFit.cover,
+            ),
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
                 margin: const EdgeInsets.only(top: 24, bottom: 14),
-                child: Text('เพลย์ลิสต์ของฉัน',
+                child: Text('♫ เพลย์ลิสต์ของฉัน ♫',
                     style: GoogleFonts.kanit(
-                        textStyle:
-                            TextStyle(color: Colors.black, fontSize: 24))),
+                        textStyle: TextStyle(
+                            color: Colors.black,
+                            fontSize: 24,
+                            fontWeight: FontWeight.w500))),
               ),
               StreamBuilder(
                   stream: myPlaylistStream,

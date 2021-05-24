@@ -16,7 +16,7 @@ class _SystemPlayListState extends State<SystemPlayList> {
         appBar: AppBar(
           titleSpacing: -5,
           backgroundColor: Colors.white,
-          title: Text('fungji',
+          title: Text('sapeji',
               style:
                   GoogleFonts.kanit(textStyle: TextStyle(color: Colors.black))),
           actions: <Widget>[
@@ -34,20 +34,30 @@ class _SystemPlayListState extends State<SystemPlayList> {
             },
           ),
         ),
-        body: Column(
-          children: [
-            Container(
-              margin: const EdgeInsets.only(top: 20, bottom: 10),
-              child: Text('เพลย์ลิสท์${data['list-Name']}',
-                  style: GoogleFonts.kanit(
-                      textStyle: TextStyle(color: Colors.black, fontSize: 24))),
+        body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage(
+                  "https://firebasestorage.googleapis.com/v0/b/fungji-9fb16.appspot.com/o/background-playlist.JPG?alt=media&token=7ff98a5d-52d7-4f14-9772-0f0f809095a2"),
+              fit: BoxFit.cover,
             ),
-            Expanded(
-              child: MusicListView(
-                data: data,
+          ),
+          child: Column(
+            children: [
+              Container(
+                margin: const EdgeInsets.only(top: 20, bottom: 10),
+                child: Text('♬ เพลย์ลิสต์${data['list-Name']} ♬',
+                    style: GoogleFonts.kanit(
+                        textStyle:
+                            TextStyle(color: Colors.black, fontSize: 24))),
               ),
-            ),
-          ],
+              Expanded(
+                child: MusicListView(
+                  data: data,
+                ),
+              ),
+            ],
+          ),
         ));
   }
 }

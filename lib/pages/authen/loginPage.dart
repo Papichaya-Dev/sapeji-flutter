@@ -19,7 +19,7 @@ class LoginPage extends StatelessWidget {
           children: <Widget>[
             Padding(
                 padding: const EdgeInsets.only(top: 70, bottom: 10),
-                child: Text('WELCOME TO FUNGJI',
+                child: Text('WELCOME TO SAPEJI',
                     textAlign: TextAlign.left,
                     style: GoogleFonts.kanit(
                       fontSize: 18,
@@ -37,7 +37,7 @@ class LoginPage extends StatelessWidget {
                         width: 80,
                         height: 80,
                       ),
-                      new Text(' fungji',
+                      new Text(' sapeji',
                           style: GoogleFonts.comfortaa(
                               textStyle: TextStyle(
                             color: Colors.black,

@@ -23,7 +23,7 @@ class _CoreState extends State<Core> {
       appBar: AppBar(
         titleSpacing: -5,
         backgroundColor: Colors.white,
-        title: Text('fungji',
+        title: Text('sapeji',
             style:
                 GoogleFonts.kanit(textStyle: TextStyle(color: Colors.black))),
         actions: <Widget>[
@@ -45,7 +45,7 @@ class _CoreState extends State<Core> {
       bottomNavigationBar: BottomNavigationBar(
         showSelectedLabels: false,
         showUnselectedLabels: false,
-        backgroundColor: Colors.grey[100],
+        backgroundColor: Colors.white,
         currentIndex: _currentIndex,
         onTap: (index) {
           setState(() {
