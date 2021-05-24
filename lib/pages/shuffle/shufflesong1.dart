@@ -68,7 +68,7 @@ class _ShuffleSongPageState extends State<ShuffleSongPage> {
         leading: IconButton(
           icon: Image.asset("assets/images/logo.png"),
           onPressed: () {
-            // print('Click start');
+            Get.offAllNamed('/');
           },
         ),
       ),
@@ -76,7 +76,7 @@ class _ShuffleSongPageState extends State<ShuffleSongPage> {
         decoration: BoxDecoration(
           image: DecorationImage(
             image: NetworkImage(
-                "https://firebasestorage.googleapis.com/v0/b/fungji-9fb16.appspot.com/o/background-playlist.JPG?alt=media&token=7ff98a5d-52d7-4f14-9772-0f0f809095a2"),
+                "https://firebasestorage.googleapis.com/v0/b/fungji-9fb16.appspot.com/o/background_sapeji_4.JPG?alt=media&token=23151415-d71c-447b-b63f-01924abc0c77"),
             fit: BoxFit.cover,
           ),
         ),
@@ -180,7 +180,26 @@ class _ShuffleSongPageState extends State<ShuffleSongPage> {
                             child: FlatButton(
                               onPressed: () {
                                 addMusicToMyPlayList(newMusicData);
-                                Get.snackbar('Success', 'add to your playlist');
+                                Get.snackbar(
+                                  'Success',
+                                  'add to your playlist',
+                                  titleText: Text(' Success',
+                                      style: GoogleFonts.kanit(
+                                        textStyle: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w600),
+                                      )),
+                                  messageText: Text(
+                                    '  add to your playlist',
+                                    style: GoogleFonts.kanit(
+                                      textStyle: TextStyle(
+                                          color: Colors.grey[700],
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                  ),
+                                );
                                 setState(() {
                                   isAdd = true;
                                 });

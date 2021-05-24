@@ -66,120 +66,149 @@ class _MusicScreenState extends State<MusicScreen> {
           },
         ),
       ),
-      body: Center(
-        child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  data['fromPlaylist'] == false && isAdd == false
-                      ? FlatButton(
-                          disabledColor: Colors.transparent,
-                          onPressed: () {},
-                          child: new Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(top: 10, left: 275),
-                                child: GestureDetector(
-                                    onTap: () {
-                                      Map<String, dynamic> newMusicData = {
-                                        ...data,
-                                        "username": username
-                                      };
-                                      Get.snackbar(
-                                          'Success', 'add to your playlist');
-                                      addMusicToMyPlayList(newMusicData);
-                                    },
-                                    child: Image.asset(
-                                      "assets/images/add-playlist.png",
-                                      width: 65,
-                                    )),
-                              ),
-                            ],
-                          ),
-                        )
-                      : SizedBox(
-                          height: 80,
-                        )
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 10),
-                child: Flexible(
-                  child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 4),
-                    child: YoutubePlayer(
-                      controller: _controller,
-                      showVideoProgressIndicator: true,
-                      progressIndicatorColor: Colors.blue,
-                      progressColors: ProgressBarColors(
-                          playedColor: Colors.blue,
-                          handleColor: Colors.blueAccent),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: NetworkImage(
+                "https://firebasestorage.googleapis.com/v0/b/fungji-9fb16.appspot.com/o/background_sapeji_2.JPG?alt=media&token=8a254e60-3b67-43da-a84a-d3eec8c3bfed"),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Center(
+          child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    data['fromPlaylist'] == false && isAdd == false
+                        ? FlatButton(
+                            disabledColor: Colors.transparent,
+                            onPressed: () {},
+                            child: new Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.only(top: 10, left: 275),
+                                  child: GestureDetector(
+                                      onTap: () {
+                                        Map<String, dynamic> newMusicData = {
+                                          ...data,
+                                          "username": username
+                                        };
+
+                                        Get.snackbar(
+                                          'Success',
+                                          'add to your playlist',
+                                          titleText: Text(' Success',
+                                              style: GoogleFonts.kanit(
+                                                textStyle: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 18,
+                                                    fontWeight:
+                                                        FontWeight.w600),
+                                              )),
+                                          messageText: Text(
+                                            '  add to your playlist',
+                                            style: GoogleFonts.kanit(
+                                              textStyle: TextStyle(
+                                                  color: Colors.grey[700],
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w400),
+                                            ),
+                                          ),
+                                        );
+                                        addMusicToMyPlayList(newMusicData);
+                                      },
+                                      child: Image.asset(
+                                        "assets/images/add-playlist.png",
+                                        width: 65,
+                                      )),
+                                ),
+                              ],
+                            ),
+                          )
+                        : SizedBox(
+                            height: 68,
+                          )
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: Flexible(
+                    child: Container(
+                      margin: EdgeInsets.symmetric(horizontal: 4),
+                      child: YoutubePlayer(
+                        controller: _controller,
+                        showVideoProgressIndicator: true,
+                        progressIndicatorColor: Colors.blue,
+                        progressColors: ProgressBarColors(
+                            playedColor: Colors.blue,
+                            handleColor: Colors.blueAccent),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Center(
-                child: Container(
+                SizedBox(
+                  height: 20,
+                ),
+                Center(
+                  child: Container(
+                    child: Text(
+                      data['title'],
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.kanit(
+                        textStyle: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10),
                   child: Text(
-                    data['title'],
-                    textAlign: TextAlign.center,
+                    'เนื้อเพลง',
                     style: GoogleFonts.kanit(
                       textStyle: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
+                          color: Colors.grey[700],
+                          fontSize: 22,
                           fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 10),
-                child: Text(
-                  'เนื้อเพลง',
-                  style: GoogleFonts.kanit(
-                    textStyle: TextStyle(
-                        color: Colors.grey[700],
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold),
-                  ),
+                SizedBox(
+                  height: 10,
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Expanded(
-                  child: Container(
-                margin: const EdgeInsets.only(bottom: 10, left: 10),
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: data['lyrics'].toString().split("*//").length,
-                  itemBuilder: (ctx, index) {
-                    var allText = data['lyrics'].toString().split("*//");
-                    return Row(
-                      children: [
-                        Text(
-                          allText[index],
-                          style: GoogleFonts.kanit(
-                            textStyle:
-                                TextStyle(color: Colors.black, fontSize: 16),
+                Expanded(
+                    child: Container(
+                  margin: const EdgeInsets.only(bottom: 10, left: 10),
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: data['lyrics'].toString().split("*//").length,
+                    itemBuilder: (ctx, index) {
+                      var allText = data['lyrics'].toString().split("*//");
+                      return Row(
+                        children: [
+                          Text(
+                            allText[index],
+                            style: GoogleFonts.kanit(
+                              textStyle:
+                                  TextStyle(color: Colors.black, fontSize: 16),
+                            ),
                           ),
-                        ),
-                      ],
-                    );
-                  },
-                ),
-              ))
-            ],
+                        ],
+                      );
+                    },
+                  ),
+                ))
+              ],
+            ),
           ),
         ),
       ),
