@@ -9,9 +9,11 @@ import 'package:fungji/pages/homepage/musicScreen.dart';
 import 'package:fungji/pages/profile/myPlaylist.dart';
 import 'package:fungji/pages/shuffle/shufflesong1.dart';
 import 'package:fungji/pages/shuffle/shufflesong2.dart';
+import 'package:fungji/services/app_localizations.dart';
 import 'package:fungji/services/auth.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'core.dart';
 
@@ -77,6 +79,23 @@ class MyApp extends StatelessWidget {
           ],
         )
       ],
+      supportedLocales: [
+        Locale('th'),
+        Locale('en'),
+      ],
+      localizationsDelegates: [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate
+      ],
+      localeResolutionCallback: (locale, supportedLocales) {
+        for (var supportedLocale in supportedLocales) {
+          if (supportedLocale.languageCode == locale.languageCode) {
+            return supportedLocale;
+          }
+        }
+        return supportedLocales.first;
+      },
     );
   }
 }

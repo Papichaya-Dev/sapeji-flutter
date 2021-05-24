@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fungji/helperFunctions/sharedpref_helper.dart';
 import 'package:fungji/layouts/skeletons.dart';
+import 'package:fungji/services/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -101,7 +102,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       width: 80,
                       height: 80,
                     ),
-                    new Text(' เพลย์ลิสต์ของฉัน',
+                    new Text(
+                        AppLocalizations.of(context).translate('my_playlist'),
                         style: GoogleFonts.kanit(
                             textStyle: TextStyle(
                           color: Colors.black,

@@ -12,7 +12,6 @@ class _SystemPlayListState extends State<SystemPlayList> {
   var data = Get.arguments;
   @override
   Widget build(BuildContext context) {
-    print(data['list-Name']);
     return Scaffold(
         appBar: AppBar(
           titleSpacing: -5,
@@ -24,7 +23,7 @@ class _SystemPlayListState extends State<SystemPlayList> {
             IconButton(
               icon: Image.asset("assets/images/logout.png"),
               onPressed: () {
-                print('Click for logout');
+                Get.offAllNamed('/');
               },
             ),
           ],
