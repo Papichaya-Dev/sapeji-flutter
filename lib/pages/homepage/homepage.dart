@@ -4,6 +4,7 @@ import 'package:flutter/rendering.dart';
 import 'package:fungji/helperFunctions/sharedpref_helper.dart';
 import 'package:fungji/layouts/musicList.dart';
 import 'package:fungji/layouts/skeletons.dart';
+import 'package:fungji/services/app_localizations.dart';
 import 'package:fungji/services/database.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -53,7 +54,9 @@ class _HomePageState extends State<HomePage> {
           children: <Widget>[
             Padding(
                 padding: const EdgeInsets.only(right: 200, top: 20, bottom: 10),
-                child: Text('แนะนำสำหรับคุณ',
+                child: Text(
+                    AppLocalizations.of(context)
+                        .translate('suggestion_for_you'),
                     textAlign: TextAlign.left,
                     style: GoogleFonts.kanit(fontSize: 22))),
             SizedBox(
