@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fungji/helperFunctions/sharedpref_helper.dart';
+import 'package:fungji/services/database.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -9,13 +11,44 @@ class MusicScreen extends StatefulWidget {
 }
 
 class _MusicScreenState extends State<MusicScreen> {
+  var data = Get.arguments;
+  String username;
+  Stream musicsStream;
+  Map musicData;
+  bool isAdd = false;
+  YoutubePlayerController _controller;
+
+  getUsername() async {
+    username = await SharedPreferenceHelper().getUserName();
+    setState(() {});
+  }
+
+  addMusicToMyPlayList(musicInfo) {
+    DatabaseMethods().addMusicToMyPlayList(musicInfo);
+    isAdd = true;
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    getUsername();
+    _controller = YoutubePlayerController(
+      initialVideoId: YoutubePlayer.convertUrlToId(data['videoID']),
+      flags: YoutubePlayerFlags(
+        autoPlay: true,
+        enableCaption: true,
+      ),
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         titleSpacing: -5,
         backgroundColor: Colors.white,
-        title: Text('fungji',
+        title: Text('sapeji',
             style:
                 GoogleFonts.kanit(textStyle: TextStyle(color: Colors.black))),
         actions: <Widget>[
@@ -35,53 +68,117 @@ class _MusicScreenState extends State<MusicScreen> {
       ),
       body: Center(
         child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 10),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              FlatButton(
-                padding: EdgeInsets.only(right: 15.0),
-                disabledColor: Colors.transparent,
-                onPressed: () {},
-                child: new Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(left: 310, top: 10),
-                      child: GestureDetector(
-                          onTap: () {
-                            print('Click for add Playlist');
-                          },
-                          child: Image.asset(
-                            "assets/images/add-playlist.png",
-                            width: 65,
-                          )),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  data['fromPlaylist'] == false && isAdd == false
+                      ? FlatButton(
+                          disabledColor: Colors.transparent,
+                          onPressed: () {},
+                          child: new Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(top: 10, left: 275),
+                                child: GestureDetector(
+                                    onTap: () {
+                                      Map<String, dynamic> newMusicData = {
+                                        ...data,
+                                        "username": username
+                                      };
+                                      Get.snackbar(
+                                          'Success', 'add to your playlist');
+                                      addMusicToMyPlayList(newMusicData);
+                                    },
+                                    child: Image.asset(
+                                      "assets/images/add-playlist.png",
+                                      width: 65,
+                                    )),
+                              ),
+                            ],
+                          ),
+                        )
+                      : SizedBox(
+                          height: 80,
+                        )
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: Flexible(
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 4),
+                    child: YoutubePlayer(
+                      controller: _controller,
+                      showVideoProgressIndicator: true,
+                      progressIndicatorColor: Colors.blue,
+                      progressColors: ProgressBarColors(
+                          playedColor: Colors.blue,
+                          handleColor: Colors.blueAccent),
                     ),
-                  ],
+                  ),
                 ),
               ),
-              Flexible(
+              SizedBox(
+                height: 20,
+              ),
+              Center(
+                child: Container(
+                  child: Text(
+                    data['title'],
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.kanit(
+                      textStyle: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 10),
+                child: Text(
+                  'เนื้อเพลง',
+                  style: GoogleFonts.kanit(
+                    textStyle: TextStyle(
+                        color: Colors.grey[700],
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Expanded(
                   child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 4),
-                      child: ListView.builder(
-                          itemCount: 1,
-                          itemBuilder: (context, index) => Container(
-                                margin: EdgeInsets.all(8),
-                                child: YoutubePlayer(
-                                  controller: YoutubePlayerController(
-                                      initialVideoId:
-                                          YoutubePlayer.convertUrlToId(
-                                              Get.arguments.toString()),
-                                      flags: YoutubePlayerFlags(
-                                        autoPlay: false,
-                                        enableCaption: true,
-                                      )),
-                                  showVideoProgressIndicator: true,
-                                  progressIndicatorColor: Colors.blue,
-                                  progressColors: ProgressBarColors(
-                                      playedColor: Colors.blue,
-                                      handleColor: Colors.blueAccent),
-                                ),
-                              )))),
+                margin: const EdgeInsets.only(bottom: 10, left: 10),
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: data['lyrics'].toString().split("*//").length,
+                  itemBuilder: (ctx, index) {
+                    var allText = data['lyrics'].toString().split("*//");
+                    return Row(
+                      children: [
+                        Text(
+                          allText[index],
+                          style: GoogleFonts.kanit(
+                            textStyle:
+                                TextStyle(color: Colors.black, fontSize: 16),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              ))
             ],
           ),
         ),

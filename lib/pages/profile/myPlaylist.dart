@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fungji/helperFunctions/sharedpref_helper.dart';
+import 'package:fungji/layouts/musicList.dart';
 import 'package:fungji/services/database.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MyPlayList extends StatefulWidget {
@@ -48,58 +50,35 @@ class _MyPlayListState extends State<MyPlayList> {
           },
         ),
       ),
-      body: StreamBuilder(
-          stream: myPlaylistStream,
-          builder: (context, snapshot) {
-            return snapshot.hasData
-                ? ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: snapshot.data.docs.length,
-                    itemBuilder: (context, index) {
-                      DocumentSnapshot ds = snapshot.data.docs[index];
-                      return Dismissible(
-                        key: UniqueKey(),
-                        direction: DismissDirection.endToStart,
-                        background: Container(
-                          color: Colors.red,
-                          child: Icon(Icons.delete, color: Colors.white),
-                          alignment: Alignment.centerRight,
-                          padding: const EdgeInsets.only(right: 20.0),
-                        ),
-                        onDismissed: (direction) {
-                          print(direction);
-                          DatabaseMethods().deleteMusicInPlaylist(ds.id);
-                        },
-                        child: Container(
-                          margin: const EdgeInsets.only(bottom: 8),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                width: 180,
-                                height: 100,
-                                child: ClipRRect(
-                                  child: Image.network(
-                                    ds['image'],
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(ds['title']),
-                                  Text(ds['channelName']),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  )
-                : Center(child: CircularProgressIndicator());
-          }),
+      body: Center(
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage(
+                  "https://firebasestorage.googleapis.com/v0/b/fungji-9fb16.appspot.com/o/background-myplaylist.JPG?alt=media&token=df4f711f-0d0f-46d9-a208-60757236762a"),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                margin: const EdgeInsets.only(top: 24, bottom: 14),
+                child: Text('♫ เพลย์ลิสต์ของฉัน ♫',
+                    style: GoogleFonts.kanit(
+                        textStyle: TextStyle(
+                            color: Colors.black,
+                            fontSize: 24,
+                            fontWeight: FontWeight.w500))),
+              ),
+              MusicLists(
+                myPlaylistStream: myPlaylistStream,
+                isFromMyPlaylist: true,
+              )
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

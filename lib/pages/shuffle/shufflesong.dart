@@ -21,7 +21,7 @@ class _ShuffleSongPageState extends State<ShuffleSongPage> {
       appBar: AppBar(
         titleSpacing: -5,
         backgroundColor: Colors.white,
-        title: Text('fungji',
+        title: Text('sapeji',
             style:
                 GoogleFonts.kanit(textStyle: TextStyle(color: Colors.black))),
         actions: <Widget>[
@@ -44,7 +44,7 @@ class _ShuffleSongPageState extends State<ShuffleSongPage> {
             children: [
               Padding(
                   padding: EdgeInsets.symmetric(vertical: 20),
-                  child: Text('เพลงที่ fungji สุ่มให้คุณ',
+                  child: Text('เพลงที่ sapeji สุ่มให้คุณ',
                       textAlign: TextAlign.left,
                       style: GoogleFonts.kanit(fontSize: 22))),
               Padding(

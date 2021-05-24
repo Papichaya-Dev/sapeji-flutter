@@ -20,6 +20,9 @@ dependencies:
   google_fonts: ^2.1.0
   youtube_player_flutter: ^8.0.0
   cloud_firestore: ^2.2.0
+  hovering: ^1.0.4
+  skeleton_text: ^3.0.0
+
 
 
 dev_dependencies:
