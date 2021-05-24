@@ -180,7 +180,26 @@ class _ShuffleSongPage2State extends State<ShuffleSongPage2> {
                             child: FlatButton(
                               onPressed: () {
                                 addMusicToMyPlayList(newMusicData);
-                                Get.snackbar('Success', 'add to your playlist');
+                                Get.snackbar(
+                                  'Success',
+                                  'add to your playlist',
+                                  titleText: Text(' Success',
+                                      style: GoogleFonts.kanit(
+                                        textStyle: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w600),
+                                      )),
+                                  messageText: Text(
+                                    '  add to your playlist',
+                                    style: GoogleFonts.kanit(
+                                      textStyle: TextStyle(
+                                          color: Colors.grey[700],
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                  ),
+                                );
                                 setState(() {
                                   isAdd = true;
                                 });

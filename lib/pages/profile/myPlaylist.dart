@@ -56,7 +56,7 @@ class _MyPlayListState extends State<MyPlayList> {
           decoration: BoxDecoration(
             image: DecorationImage(
               image: NetworkImage(
-                  "https://firebasestorage.googleapis.com/v0/b/fungji-9fb16.appspot.com/o/background-myplaylist.JPG?alt=media&token=df4f711f-0d0f-46d9-a208-60757236762a"),
+                  "https://firebasestorage.googleapis.com/v0/b/fungji-9fb16.appspot.com/o/background_sapeji_1.JPG?alt=media&token=3a437f7b-46fd-446e-b049-ebecd48468ac"),
               fit: BoxFit.cover,
             ),
           ),
