@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage> {
             Padding(
               padding: const EdgeInsets.only(right: 200, top: 3, bottom: 5),
               child: Text(
-                'เพลย์ลิสต์โดนใจ',
+                AppLocalizations.of(context).translate('system_playlist'),
                 style: GoogleFonts.kanit(
                     textStyle: TextStyle(color: Colors.black, fontSize: 22)),
               ),
