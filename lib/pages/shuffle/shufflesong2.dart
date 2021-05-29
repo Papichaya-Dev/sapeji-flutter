@@ -61,7 +61,7 @@ class _ShuffleSongPage2State extends State<ShuffleSongPage2> {
           IconButton(
             icon: Image.asset("assets/images/logout.png"),
             onPressed: () {
-              print('Click for logout');
+              Get.offAllNamed('/');
             },
           ),
         ],

@@ -17,7 +17,7 @@ class _MusicListViewState extends State<MusicListView> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: 3,
+        itemCount: widget.data['list'].length,
         itemBuilder: (context, index) {
           // print(data['list'][3]['title']);
           var ds = widget.data['list'][index];
