@@ -16,9 +16,18 @@ class _SystemPlayListState extends State<SystemPlayList> {
         appBar: AppBar(
           titleSpacing: -5,
           backgroundColor: Colors.white,
-          title: Text('sapeji',
-              style:
-                  GoogleFonts.kanit(textStyle: TextStyle(color: Colors.black))),
+          title: Row(
+            children: [
+              Image.asset(
+                "assets/images/logo.png",
+                width: 42,
+                height: 42,
+              ),
+              Text('sapeji',
+                  style: GoogleFonts.kanit(
+                      textStyle: TextStyle(color: Colors.black))),
+            ],
+          ),
           actions: <Widget>[
             IconButton(
               icon: Image.asset("assets/images/logout.png"),
@@ -28,9 +37,12 @@ class _SystemPlayListState extends State<SystemPlayList> {
             ),
           ],
           leading: IconButton(
-            icon: Image.asset("assets/images/logo.png"),
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            ),
             onPressed: () {
-              // print('Click start');
+              Get.back();
             },
           ),
         ),
