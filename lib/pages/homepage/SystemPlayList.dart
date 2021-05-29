@@ -38,7 +38,7 @@ class _SystemPlayListState extends State<SystemPlayList> {
           decoration: BoxDecoration(
             image: DecorationImage(
               image: NetworkImage(
-                  "https://firebasestorage.googleapis.com/v0/b/fungji-9fb16.appspot.com/o/background-playlist.JPG?alt=media&token=7ff98a5d-52d7-4f14-9772-0f0f809095a2"),
+                  "https://firebasestorage.googleapis.com/v0/b/fungji-9fb16.appspot.com/o/background_sapeji_2.JPG?alt=media&token=8a254e60-3b67-43da-a84a-d3eec8c3bfed"),
               fit: BoxFit.cover,
             ),
           ),
@@ -51,9 +51,12 @@ class _SystemPlayListState extends State<SystemPlayList> {
                         textStyle:
                             TextStyle(color: Colors.black, fontSize: 24))),
               ),
-              Expanded(
-                child: MusicListView(
-                  data: data,
+              SizedBox(
+                height: 550,
+                child: Expanded(
+                  child: MusicListView(
+                    data: data,
+                  ),
                 ),
               ),
             ],

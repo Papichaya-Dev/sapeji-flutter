@@ -40,7 +40,7 @@ class _MyPlayListState extends State<MyPlayList> {
           IconButton(
             icon: Image.asset("assets/images/logout.png"),
             onPressed: () {
-              print('Click for logout');
+              Get.offAllNamed('/');
             },
           ),
         ],
@@ -56,7 +56,7 @@ class _MyPlayListState extends State<MyPlayList> {
           decoration: BoxDecoration(
             image: DecorationImage(
               image: NetworkImage(
-                  "https://firebasestorage.googleapis.com/v0/b/fungji-9fb16.appspot.com/o/background-myplaylist.JPG?alt=media&token=df4f711f-0d0f-46d9-a208-60757236762a"),
+                  "https://firebasestorage.googleapis.com/v0/b/fungji-9fb16.appspot.com/o/background_sapeji_1.JPG?alt=media&token=3a437f7b-46fd-446e-b049-ebecd48468ac"),
               fit: BoxFit.cover,
             ),
           ),
@@ -72,123 +72,127 @@ class _MyPlayListState extends State<MyPlayList> {
                             fontSize: 24,
                             fontWeight: FontWeight.w500))),
               ),
-              StreamBuilder(
-                  stream: myPlaylistStream,
-                  builder: (context, snapshot) {
-                    return snapshot.hasData
-                        ? ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: snapshot.data.docs.length,
-                            itemBuilder: (context, index) {
-                              DocumentSnapshot ds = snapshot.data.docs[index];
-                              var docData = snapshot.data.docs[index].data();
-                              return Dismissible(
-                                  key: UniqueKey(),
-                                  direction: DismissDirection.endToStart,
-                                  background: Container(
-                                    color: Colors.red,
-                                    child:
-                                        Icon(Icons.delete, color: Colors.white),
-                                    alignment: Alignment.centerRight,
-                                    padding: const EdgeInsets.only(right: 20.0),
-                                  ),
-                                  onDismissed: (direction) {
-                                    print(direction);
-                                    DatabaseMethods()
-                                        .deleteMusicInPlaylist(ds.id);
-                                  },
-                                  child: Row(
-                                    children: [
-                                      FlatButton(
-                                          onPressed: () {
-                                            Get.toNamed(
-                                              "/musicScreen",
-                                              arguments: {
-                                                "image": docData['image'],
-                                                "title": docData['title'],
-                                                "channelName":
-                                                    docData['channelName'],
-                                                "videoID": docData['videoID'],
-                                                "suggestion":
-                                                    docData['suggestion'],
-                                                "lyrics": docData['lyrics'],
-                                                "fromPlaylist": true,
-                                              },
-                                            );
-                                          },
-                                          child: Container(
-                                              width: 160,
-                                              height: 100,
-                                              child: Image.network(
-                                                ds['image'],
-                                                loadingBuilder: (context, child,
-                                                        progress) =>
-                                                    progress == null
-                                                        ? child
-                                                        : Skeleton()
-                                                            .musicThumbnailImage(),
-                                                fit: BoxFit.cover,
-                                              ))),
-                                      Divider(
-                                        height: 105,
-                                      ),
-                                      GestureDetector(
-                                        onTap: () {
-                                          Get.toNamed("/musicScreen",
-                                              arguments: {
-                                                "image": docData['image'],
-                                                "title": docData['title'],
-                                                "channelName":
-                                                    docData['channelName'],
-                                                "videoID": docData['videoID'],
-                                                "suggestion":
-                                                    docData['suggestion'],
-                                                "lyrics": docData['lyrics'],
-                                                "fromPlaylist": true,
-                                              });
-                                        },
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(0.1),
-                                          child: Column(
-                                            children: [
-                                              Container(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    2,
-                                                child: Center(
-                                                  child: Text(ds['title'],
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      maxLines: 1,
-                                                      style: GoogleFonts.kanit(
-                                                          textStyle: TextStyle(
-                                                              color:
-                                                                  Colors.black,
-                                                              fontSize: 14))),
-                                                ),
-                                              ),
-                                              Text(ds['channelName'],
-                                                  style: GoogleFonts.kanit(
-                                                      textStyle: TextStyle(
-                                                          color:
-                                                              Colors.grey[600],
-                                                          fontSize: 14))),
-                                            ],
-                                          ),
+              SizedBox(
+                height: 550,
+                child: StreamBuilder(
+                    stream: myPlaylistStream,
+                    builder: (context, snapshot) {
+                      return snapshot.hasData
+                          ? ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: snapshot.data.docs.length,
+                              itemBuilder: (context, index) {
+                                DocumentSnapshot ds = snapshot.data.docs[index];
+                                var docData = snapshot.data.docs[index].data();
+                                return Dismissible(
+                                    key: UniqueKey(),
+                                    direction: DismissDirection.endToStart,
+                                    background: Container(
+                                      color: Colors.red,
+                                      child: Icon(Icons.delete,
+                                          color: Colors.white),
+                                      alignment: Alignment.centerRight,
+                                      padding:
+                                          const EdgeInsets.only(right: 20.0),
+                                    ),
+                                    onDismissed: (direction) {
+                                      print(direction);
+                                      DatabaseMethods()
+                                          .deleteMusicInPlaylist(ds.id);
+                                    },
+                                    child: Row(
+                                      children: [
+                                        FlatButton(
+                                            onPressed: () {
+                                              Get.toNamed(
+                                                "/musicScreen",
+                                                arguments: {
+                                                  "image": docData['image'],
+                                                  "title": docData['title'],
+                                                  "channelName":
+                                                      docData['channelName'],
+                                                  "videoID": docData['videoID'],
+                                                  "suggestion":
+                                                      docData['suggestion'],
+                                                  "lyrics": docData['lyrics'],
+                                                  "fromPlaylist": true,
+                                                },
+                                              );
+                                            },
+                                            child: Container(
+                                                width: 160,
+                                                height: 100,
+                                                child: Image.network(
+                                                  ds['image'],
+                                                  loadingBuilder: (context,
+                                                          child, progress) =>
+                                                      progress == null
+                                                          ? child
+                                                          : Skeleton()
+                                                              .musicThumbnailImage(),
+                                                  fit: BoxFit.cover,
+                                                ))),
+                                        Divider(
+                                          height: 105,
                                         ),
-                                      )
-                                    ],
-                                  ));
-                            },
-                          )
-                        : Center(
-                            child: Container(
-                                width: 50,
-                                height: 50,
-                                child: CircularProgressIndicator()),
-                          );
-                  })
+                                        GestureDetector(
+                                          onTap: () {
+                                            Get.toNamed("/musicScreen",
+                                                arguments: {
+                                                  "image": docData['image'],
+                                                  "title": docData['title'],
+                                                  "channelName":
+                                                      docData['channelName'],
+                                                  "videoID": docData['videoID'],
+                                                  "suggestion":
+                                                      docData['suggestion'],
+                                                  "lyrics": docData['lyrics'],
+                                                  "fromPlaylist": true,
+                                                });
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(0.1),
+                                            child: Column(
+                                              children: [
+                                                Container(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      2,
+                                                  child: Center(
+                                                    child: Text(ds['title'],
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        maxLines: 1,
+                                                        style: GoogleFonts.kanit(
+                                                            textStyle: TextStyle(
+                                                                color: Colors
+                                                                    .black,
+                                                                fontSize: 14))),
+                                                  ),
+                                                ),
+                                                Text(ds['channelName'],
+                                                    style: GoogleFonts.kanit(
+                                                        textStyle: TextStyle(
+                                                            color: Colors
+                                                                .grey[600],
+                                                            fontSize: 14))),
+                                              ],
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ));
+                              },
+                            )
+                          : Center(
+                              child: Container(
+                                  width: 50,
+                                  height: 50,
+                                  child: CircularProgressIndicator()),
+                            );
+                    }),
+              )
             ],
           ),
         ),
