@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fungji/helperFunctions/sharedpref_helper.dart';
 import 'package:fungji/layouts/musicList.dart';
 import 'package:fungji/layouts/skeletons.dart';
+import 'package:fungji/services/app_localizations.dart';
 import 'package:fungji/services/database.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -33,9 +34,18 @@ class _MyPlayListState extends State<MyPlayList> {
       appBar: AppBar(
         titleSpacing: -5,
         backgroundColor: Colors.white,
-        title: Text('fungji',
-            style:
-                GoogleFonts.kanit(textStyle: TextStyle(color: Colors.black))),
+        title: Row(
+          children: [
+            Image.asset(
+              "assets/images/logo.png",
+              width: 42,
+              height: 42,
+            ),
+            Text('sapeji',
+                style: GoogleFonts.kanit(
+                    textStyle: TextStyle(color: Colors.black))),
+          ],
+        ),
         actions: <Widget>[
           IconButton(
             icon: Image.asset("assets/images/logout.png"),
@@ -45,7 +55,10 @@ class _MyPlayListState extends State<MyPlayList> {
           ),
         ],
         leading: IconButton(
-          icon: Image.asset("assets/images/logo.png"),
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
           onPressed: () {
             Navigator.of(context).pop();
           },
@@ -65,7 +78,8 @@ class _MyPlayListState extends State<MyPlayList> {
             children: [
               Container(
                 margin: const EdgeInsets.only(top: 24, bottom: 14),
-                child: Text('♫ เพลย์ลิสต์ของฉัน ♫',
+                child: Text(
+                    '♫ ${AppLocalizations.of(context).translate('my_playlist')} ♫',
                     style: GoogleFonts.kanit(
                         textStyle: TextStyle(
                             color: Colors.black,
