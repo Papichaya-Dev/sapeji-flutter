@@ -32,13 +32,13 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'Comfordaa'),
       getPages: [
-        // GetPage(
-        //   name: '/',
-        //   page: () => LoginPage(),
-        //   bindings: [RandomBinding(), UserBinding()],
-        // ),
         GetPage(
           name: '/',
+          page: () => LoginPage(),
+          bindings: [RandomBinding(), UserBinding()],
+        ),
+        GetPage(
+          name: '/core',
           page: () => Core(),
           bindings: [RandomBinding(), UserBinding()],
         ),
