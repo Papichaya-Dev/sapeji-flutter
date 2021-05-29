@@ -37,7 +37,7 @@ class _CoreState extends State<Core> {
         leading: IconButton(
           icon: Image.asset("assets/images/logo.png"),
           onPressed: () {
-            // print('Click start');
+            Get.offAllNamed('/core');
           },
         ),
       ),
