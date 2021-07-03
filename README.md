@@ -1,17 +1,24 @@
-# fungji
 
-A new Flutter project.
+## :minidisc: sapeji (เสพจิ) :minidisc:
+sapeji is mobile application for peoples who are passionate about indie music. Users can listen to music, add songs to your playlist and There is also a shuffle music mode for users.
 
-## Getting Started
+## ✨ Features
+- Listen music with lyrics from YouTube 
+- Create playlist of you
+- Shuffle music , add shuffle music to your playlist if you want
 
-This project is a starting point for a Flutter application.
+## :mag: Preview
+- Home :house:
+<div class="column">
+    <img src="https://www.linkpicture.com/q/mobile_home.jpg"  width="800px" />
+</div>
 
-A few resources to get you started if this is your first Flutter project:
+- Shuffle music :game_die:
+<div class="column">
+    <img src="https://www.linkpicture.com/q/mobile_shufflepage.jpg"  width="800px" />
+</div>
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-"# fungji-flutter" 
+- Profile :angel:
+<div class="column">
+    <img src="https://www.linkpicture.com/q/mobile_profile.jpg" width="800px" />
+</div>
