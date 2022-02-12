@@ -10,15 +10,15 @@ sapeji is mobile application for peoples who are passionate about indie music. U
 ## :mag: Preview
 - Home :house:
 <div class="column">
-    <img src="https://www.linkpicture.com/q/mobile_home.jpg"  width="800px" />
+    <img src="https://github.com/Papichaya-Dev/sapeji-flutter/blob/main/assets/images/home_sapeji.png"  width="800px" />
 </div>
 
 - Shuffle music :game_die:
 <div class="column">
-    <img src="https://www.linkpicture.com/q/mobile_shufflepage.jpg"  width="800px" />
+    <img src="https://github.com/Papichaya-Dev/sapeji-flutter/blob/main/assets/images/random_sapeji.png"  width="800px" />
 </div>
 
 - Profile :angel:
 <div class="column">
-    <img src="https://www.linkpicture.com/q/mobile_profile.jpg" width="800px" />
+    <img src="https://github.com/Papichaya-Dev/sapeji-flutter/blob/main/assets/images/profile_sapeji.png" width="800px" />
 </div>
